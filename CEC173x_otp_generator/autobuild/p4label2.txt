@@ -1,0 +1,497 @@
+Description:
+ CEC173x efuse generator:
+
+Build 0800:
+1. Updated the version 8.00
+2. To get the generated sqtp file to have the ToolVersion,8.0 
+  separate keyword in the sqtp file  to identiy the otp tool version 
+  under the <header> section with ToolVersion,8.0
+
+Build 0700:
+1. Updated the version 7.00
+2. Updated the Tools to have option to select the device for MFG_TEST/Production/Development
+
+Build 0600:
+1. Updated the version Glacier Efuse Generator Tool Ver: 6.00
+2. Updated the efuseconfig.ini to support for the A0/A1 parts
+	; Provide the ChipStr for A0 or A1
+	[GLACIERPART]
+	Chipstr=A1
+
+	; OTP offset 368-415 => Owner of the KHB =>total 48 bytes
+	[OWNERKHB]
+	UseOWNERKHB=true
+	OWNERKHB_Bin=SHA384(KeyHashBlob).bin
+3.Glacier B key generation for AP FW public key for ec_fw_entry blob and KHB for internal /sha384 of the KHB to otp 368-415
+  Tool: glacierb_key_generation.exe -i keycfg.ini
+        It generates the SHA384(KeyHashBlob).bin for the otp (368-415) and KeyHashBlob.bin for the internal flash
+4. use the batch script auto_efuse_gen.bat to call the KHB blob generation and SG3 SPI image generation
+
+
+Build 0501:
+    1. Updated the output folder section  in the efuseconfig.ini 
+     to generate the same files in that folder which will be useful for automation 
+
+Build 0500:
+1. Added the support for the 4-byte alignment for the efuse to be updated into the efuse map region         
+	otp offset =>2 bytes         
+	otp Data   =>2 bytes   
+	For example offset = 482  , HEX  = 1E2 , DATA =  0x80
+	Fix as otp BIN/HEX region it will update as E2 01 80 00
+Build 0400:
+1. Added the otp checker log for each efuse bytes as per the otp rules shhet
+version 10:
+//depot_pcs/Programs_2020/Glacier/Product Documentation/Production Test/Production OTP/SG107-A0-136/Glacier_OTP_SG107_A0_136_SoteriaG3 -RULES.xlsm
+
+2. Tool to have the 0-1023 array of show/merge/hide fileds specified in the otp rules sheet.
+
+3. Tool will take each values configured and validated against each otp offset with the above otp rules sheet array.
+
+4. Tool to genertate the otp checker and otp dump log for each otp offset and otp data.
+
+Build 0309:
+1. Added the Linux x32/X64 support for the Efuse gen with the command Line support only 
+  Without UI support for the Linux based efuse gen
+
+Build 0308:
+1. Added the support of the input configuration to be provided in the INI file for the OTP/PUF DEVIK signed file to be provided in the tool
+
+Build 0307:
+1. Updated the signed version with the MCHP public CA
+2. Updated the original_binary from the otp_prog_mplabx of the 
+   Label : Glacier_otp_prog_mplabx_build_0B00
+   Projects : //depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/...
+   Merged the files from 
+   //depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/target/Glacier_otp_prog_mplabx_nt.bin
+   to 
+   //depot_pcs/FWEng/solutions/Glacier_GEN3/tools/Glacier_efuse_generator/efuse/original_binary/otp_prog_original.bin
+   Merged the files from 
+   //depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/target/Glacier_otp_prog_mplabx_nt.hex
+   To the target files 
+   //depot_pcs/FWEng/solutions/Glacier_GEN3/tools/Glacier_efuse_generator/efuse/original_binary/otp_prog_original.hex
+
+Build 0306:
+1. Updated the signed version with the MCHP public CA
+2. Updated the original_binary from the otp_prog_mplabx of the 
+   Label : Glacier_otp_prog_mplabx_build_0A00
+   Projects : //depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/...
+   Merged the files from 
+   //depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/target/Glacier_otp_prog_mplabx_nt.bin
+   to 
+   //depot_pcs/FWEng/solutions/Glacier_GEN3/tools/Glacier_efuse_generator/efuse/original_binary/otp_prog_original.bin
+   Merged the files from 
+   //depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/target/Glacier_otp_prog_mplabx_nt.hex
+   To the target files 
+   //depot_pcs/FWEng/solutions/Glacier_GEN3/tools/Glacier_efuse_generator/efuse/original_binary/otp_prog_original.hex
+
+Build 0305:
+1. Updated the fix of the opensslpath missing
+   Fix of the Authenctication enable to clear the string in the textbox
+  Signed the exe with the MCHP public CA
+Build 0304:
+1. MCHP signed version of the exe with the Public CA 
+  Utility version 3.04
+Build 0303:
+1. MCHP signed version of the exe with the MCHP public CA
+ Version of the utility 3.03
+2. In the UI updated the fieldsa as below :
+   Rollback Protection Byte  0-15 , ECDSA key revocation byte 0-3/
+   OTP CRC value, Production Owner Debug/ Security Features/ DICE RIOT & optional features,
+   Crisis Flash & Load Failure Recovery/ Optional Features/Custom Features/ crisis mode/
+3. Customer region (Application byte ) offset updated with 576 to 863
+4. OTP read/write lock byte / OTP WRITE SECURE_LOCK/OTP READ SECURE_LOCK /
+   CFG_LOCK Byte 0-4 / CR_FLASH TAG  Base Address - Byte 0-3
+5. Used the reference OTP rules sheet verion 3 at p4v path:
+   //depot_pcs/Programs_2020/Glacier/Product Documentation/Production Test/Production OTP
+   /SG107-A0-835/Glacier_OTP_SG107_A0_835 - RULES.xlsm
+6. In progress - Efuse offset 368-415 SHA384 (Owner 1 public key byte 0-47)  
+7. In progress - Efuse offset 864-911  SHA384 (PlatKpublic key byte 0-47)  
+
+Build 0302:
+1. updated the Write Lock byte /Read lock byte value in the UI
+
+Build 0301:
+1. Cleaned the respective cec1712 releated in the code.
+2.    Support with the configuration file to take as otp_value.txt
+   Update the otp offset/byte in the otp_value.txt
+       [Efuse_section] 
+        efuse[992]=0x0
+        efuse[993]=0x0
+        efuse[994]=0x0
+        efuse[995]=0x0
+3. Add the support of the command:
+   To dump the otp offset/value in otp_dump.log 
+    command : Carlsbad_efuseGEN2.exe -o otp_efuse_0x<CRC value>.bin
+   To read the OTP rules sheet and to generate the otp hex/bin/header file/sqtp files
+    command : Carlsbad_efuseGEN2.exe -i "Carlsbad_OTP_SG106_B0_735 - RULES.xlsm" -r 9 -c 14
+    
+Build 0300:
+1. Updatd the otp_value.txt to read the configuration infromation and 
+   and updated into the final otp hex/bin /sqtp files
+Build 0200:
+1. Read the excel sheet to take the efuse offset and value into Final otp
+   binaries
+2. Read the text file to read the efuse offset and value into Final otp 
+   binaries 
+ 
+Build 0100:
+1. Branched from the cec1712_Gen2 efuse generator as a base 
+ 
+ 
+------------------------------------------------------------------------------ 
+Build 3600:
+1. Supported efuse bits/bytes  and Refer the datasheets or OTP sheets 
+   for the supported efuse bytes 
+	efuse 	Data and Comments 	
+	0-47	HIDE for the soteria G2 and SHOW for the soteris-g2 custom	SHOW 
+	49		HIDE	bit[6] wont be shown in the GUI 
+	93		SHOW for bit[1:2 ] for soteria-g2 and SHOW for bit[0:1:2:3:4]	
+	336		HIDE for soteria G2 and show for the soteria-g2 custom 	
+	340		HIDE for soteria G2 and show for the soteria-g2 custom 	
+	354		SHOW for bit[6:7 ] for soteria-g2 and SHOW for bit[0:1:2:3:6:7]	
+	355		HIDE for the soteria-G2 and show for bit[0:7]	
+	360-415		SHOW 	
+	672-991		Custom region will be change for each parts  for show and HIDE region 	
+	992-999		TAG0/Tag1  for SHOW	
+	1000-1002		Flash comp1	
+	1010		JTAG bit[7] for soteria-G2 and soteriag2 custom ( bit 7:6)	
+	1011		show for the bit[3:2:1:0] of soteria-g2 custom , show for the bit [0:3]	
+ 
+Build 3500:
+1. Updated the crc32 for the efuse gen hex and bin files 
+   Generate the CRC32 checksum in the bin file as 
+   efuse\efuse_xxxx\out_binaries\otp_efuse_0x<CRCCHECKSUM32>.hex
+   efuse\efuse_xxxx\out_binaries\otp_efuse_0x<CRCCHECKSUM32>.bin 
+   Matches with the MPLABX IPE of the efuse hex files with the 
+   efuse generated otp files 
+    - Generate the hex and bin files under the extension to show the crc32 checksum
+     for th output binaries 
+	 For ex :
+	 otp_efuse_0xb3bd4bcc.hex  -> crc32 checksum 0xb3bd4bcc
+	 otp_efuse_0xdd5c950a.bin  -> crc32 checksum 0xdd5c950a  
+Build 3400:
+1. Merged the Input binaries into the original_binary DIR of files otp_prog_original.hex/bin
+
+Build 3300:
+1. Updated the OTP CRC / ECDSA key revocation byte 0/ Customer revision/
+   Secureboot features of rollback protection 
+Build 3200:
+1. Updated the hex/bin files in the DIR with the update of the ECDSA key hasb blob 0/1
+  in the otp offset 360-367 
+efuse/original_binary/otp_prog_original.hex 
+
+Build 3100:
+1. bit 5 (JTAG  is disabled in QA mode) shouldn’t be set by the tool. 
+  Only bit 7 should be set when JTAG is disabled
+  
+Build 3000:
+1. Updated the EXE to read from the efuseconfig.ini
+
+Build 2900:
+1. TAG1 address is not to program in the 996-999 if the 'Tag1 Alternate location ' 
+   is not selected 
+2. If TAG0 alternate location is opted and provided the address , should update
+   OTP offset 992-995
+3. If TAG1 alternate location is opted and provided the address , should update
+   OTP offset 996-999 and should update the Bit[0] of the 992 offset.     
+
+Build 2800:
+1. Updated the efuse generator with password as optional 
+  for ECDH encryption
+2. Updated the help.txt for examples for the ECDSA Key flash address 0/1
+3. Browse option for the ECDH key
+4. Move "EC KEY count" to down 
+  
+Build 2700:
+1. ECDSA key storage Flash Address 0/1 into the UI 
+2. specified the ECDSA key storage Flash Address 1 which is applicable for the 
+   REV B parts in help.txt / specified that it accepts the 4 bytes
+3. Added this part into :
+	Use Alternate Tag0 Location  
+
+	Tag0 SPI address pointer  (4 byte) (masked out 2 bit)
+	Tag0 Flash component  comp 0 comp 1
+	Tag1 Alternate location enable/disable ( bit 0/1) based on this bit show below
+	Tag1 SPI address pointer  (4 byte) (masked out 2 bit)
+	Tag1 Flash component  comp 0 comp 
+4. Removed the bit wise shown for Tag0/1 address pointer /Flash comp1 BA 
+   ECDSA key hash blob address in the GUI and specified the byte information for this fields 
+   in the help.txt and also with example 
+   
+Build 2600:
+1. Fix of ECDSA Key Storage Flash address[31:4] takes more than 28 bits
+2. Fix of  key hash blob and not “key” in UI
+3. Fix of Platform ID can take a very large input
+4. Updated the help.txt to refer the private ecdsa384 key for the ECDH2 in the UI for encryption
+
+Build 2500:
+1. Added the soteria-G2-custom in the device selection parts to have the 
+  option of ECDH key generation for encryption 
+   Added the Expand current encryption tab to input ECDH2 key as well – Stage 2
+2.  Added options to accept Encrypted ECDH private key and ECDH2 public key – Stage 3
+3. Tested with ECDH for key pair generation and tested in otp 0-47 for ecc private key
+   and ecdh pub II generation parts on the OTP 128-223
+4.  Browse the  ecdh key and ecdh pub II in the GUI and verified the  ecdh pub II in the OTP 128-223
+   and otp 0-47 for ecc private key
+5. tool has option to have the plain ecc private encryped key and ECDH II public key in binary
+   using the browse option and verified the  ecdh pub II in the OTP 128-223
+   and otp 0-47 for ecc private key
+
+Build 2400:
+1.  Expand current encryption tab to input ECDH2 key as well – Stage 2
+2.  Add options to accept Encrypted ECDH private key and ECDH2 public key – Stage 3
+
+Build 2300:
+1. Generate the window for EC key hash generation restriction
+
+Build 2200:
+1. Quit Window is not appear when the window is decreased
+2. ECDSA Key hash address and Key count restriction /Platform ID
+   Flash comp1 address 
+   
+Build 2100:
+1. Renamed the python and exe 
+   to match the MPLABX supported device ID
+   as CEC1712
+   Everglades_efuseGEN.exe into CEC1712_efuseGEN2.exe
+   Everglades_efuseGEN.py into CEC1712_efuseGEN2.py
+Build 2000:
+1. Grouping all the features into individual group
+2. Not to support the window size to be increase 
+
+Build 1900:
+1. Set bit 2 and 7, after program byte 93 (Secure Boot)
+2. Set bit 8/9 /11, 12 after program Byte 354 (Security Features), 
+Bytes 360-367 (EC Key Hash Blob 0,1 BA) and Bytes 368-415 
+ (Key Hash Blob hash 0,1)
+3.Set bit 27, 28, 29 after program the SG2 items and bit 31 after 
+  program TAGx BA and Flash Comp 1 BA
+Build 1800:
+1. Fix : In the Warning window; show what AP1 Reset and EXTRST is configured to; 
+   not Disable or Enable
+2. Fix : Quit Button not working on both tool
+3.Fix :Continue button is not visible in Warning! 
+4.Fix : Don't change JTAG label to 'JTAG Enable' or  'JTAG disabled' based on select option
+5.Fix :  Efuse Generator tool window size should display all fields and buttons
+6.Fix : HELP window in Efuse Generator Tool works only once
+7. Fix : All values should be hex, no need to mention (HEX) for each field.
+   Put default values with 0x0
+Build 1700:
+1. The OTP Memory is write-lockable on 32 byte regions,
+  rollback protection and key revocation features are used, 
+  then do not write lock region 24 and 25.
+2. Masked the write lock /read lock region for 24/25 region 
+  which is used by the EC_FW 
+  
+Build 1600:
+1. Updated the OTP write/read lock of efuse byte 0-3 to lock the 
+  efuse region from 0-1023
+
+Build 1500:
+1. AP_1 Reset and EXRST value to be shown in GUI as per DOS
+2. Features related to desktop/mobile/comparator/SOteria-G2
+   is updated as per DOS to be shown in GUI
+3. DICE/UDS is enable features is updated
+4. UDS geneartion instruction is not updated , still DOS has to
+  give whether the encryption of UDS into the otp region
+  need to be updated - Pending from the sysENg
+5. efuseconfig.ini for the soteriaG2/desktop/mobile/comparator
+   need to be updated - It's pending 
+   
+Build 1400:
+1. Used the Production ROM keys = EvgldRomEP384Prod_crt.pem
+2. Added the Enable/Disable flags to be shown in the efuse log
+
+Build 1300:
+1. Added the label version 13.00
+2. Used the FPGA ROM keys = ECC384r_crt.pem for encryption
+
+Build 1200:
+1. For the Given key count , it will generate the ECC384 key pair,
+   calculate hash of the these keys pair
+2. For the remaining  keys, put hash as 0’s
+3. Calculate the hash of the entire 32 key hash 
+
+Build 1100:
+1. Added the Soteria-G2 related into the GUI
+Build 1000:
+1. Updated with the FPGA ROM ecdh key kept in tools DIR of ECC384r_crt.pem
+2. Updated the ECDH option to generate the private key to be kept in the efuse region 0-47 
+  of ecc384 curve
+3. When the encyrption is opted , it will use the ROM ECDH  public key kept in tools dir of ECC384r_crt.pem
+  which will update the efuse region 128-223 
+
+Build 0900:
+1. Updated the Tag0/1 to update the bit[0]/bi[1] value
+
+Build 0800:
+1. Updated the Scrollbar options in the GUI for the main windows where it listed all the features 
+
+Build 0700:
+1. Updated the Tag0/tag1 feilds
+2. Customerrevision in the GUI
+3. ECDH key encryption part is in progress
+4.Updated the key generation of EC private key based on the count/it generates the hash of the key in binary.
+5. Browse option of ec private keys - its in progess.
+6. Scroll bar option for the main windows its in progress 
+Build 0600:
+1. added the  Tag0/1
+2. ECDH key not updated with P384 curve
+
+Build 0500: 
+updaed the key generation for the ecc384 curve
+
+Build 0400:
+1) Updated the security Features / Secureboot / Dice riot in the GUI
+
+Build 0300:
+1) Updated the PRIM PWRGD GPIO / RSMRST GPIO
+
+Build 0200:
+1) Updated the new offset for JTAG/Authentication/AES/DSWpWROK
+2) Added the new delay of 150ms delay
+3) Added the TAG0/TAG1 in the new offset in the LSB
+
+Build 0100:
+1. Base version is from the label 1800
+//depot_pcs/FWEng/projects/Everglades/tools/efuse_generator/...
+
+
+This build description has the features for the Everglades efuse generator utility:
+Build 1800:
+1. Multiple window handled in the IDX customer entry for the invalid data.
+2. If the customer enter the empty data, it will take the "00" as the default.
+3.Update the close window of the second window if multiple window is opened , it will open the message box to the user says that close those window.
+
+Build 1700:
+1. Fixed the comments from the label 1600
+2.Fixed - Multiple windows opening on button press (browse, aes mandatory) 
+3. Fixed - OTP write lock not clearing on disabling custom region 
+4.Fixed- Reframe AES mandatory error message (Encrypt ECDH is not necessary for AES mandatory) 
+5.Fixed - OTP write pop up shows error in command line and not working on first click 
+6.Fixed - Custom region entering 
+6.a ) in decimal mode not working properly 
+6.b)in hex mode – on entering 3rd digit zero appears in the window 
+6.c)sometimes on disabling and enabling back custom region clears the index value(may not be issue just observation) 
+7)Fixed - Typing text in device package selection list box 
+8)Fixed - Comparator strap (CMP_STRAP or COMP_STRAP use any one) 
+9) Fixed - On quit pop up windows are not closing properly, hanging opened. 
+
+Build 1600:
+1. Fix -- Quit and refresh -> no action, when refresh is useful, I didn’t find how to use it and what purpose I can use it. 
+2. Fix - Removed files in tools folder, the error pop up doesn’t match with actual error
+3.Fix - Pop doesn’t match for the missing EVERGLADES_ECDH_ROM_crt.pem file. 
+4. Fix - Can we get “JTAG & QA mode Disabled” in single line. 
+5. Fix - Clarify AES Mandatory encryption error pop up, I cannot correlate the message with the features in GUI. 
+6.The missing files verification shall happen before warning message pops up
+Build 1500:
+Advance selection in the Utiltiy : 
+1. Efuseconig.ini :
+   Provide the 'ExeName' and 'Feature' under the section [DEVICE_PACKAGE]
+   Provide the package name which will display in the toolname in the utility
+   For example : ExeName = MEC1503 
+   Tool name will be displayed as 'MEC1503 Efuse Generator Tool Ver: 14.00'
+   ExeName =
+   For example  : Feature = gc ( General with comparator feature)
+   Feature = 
+2. If the ExeName and Feature are not provided in the "efuseconfig.ini" ;
+   Efuse Generator Tool Ver: 14.00 Utility  will open with the 
+   select the Device Package available:
+   Device    
+   General 
+   Desktop 
+   Mobile 
+   Mobile & comparator 
+   General & comparator 
+   Give "Ok" button , will open the other window which will generate the 
+   efuse binaries (which will lock the "ok" button & device selection option 
+   will be disabled,once close that second window of efuse generator Utility , 
+   press "Refresh" button to enable the first window of device selection package 
+   in the Utility.
+
+Build 1400:
+Having ‘True\false and 1\0 for feature enable in the config file for newly updated variables to be consistent with other configurations 
+Mandatory checking of flags need to be updated for all the updated features ( Remove elif(else if) from config data checking 
+DSKtop feature enable or disable need to remove two flags for enable and previous enable flag for 0 \ 1 is not working as expected in config file 
+Mobile enable \ disable using of two flags for feature enable should be removed. 
+Build 1300:
+1.Fixed - Custom view window is keep on bouncing not stable
+2.Fix for the data always have a ‘0’ display on ‘Dec’ select and looks like not stable switching between hex and dec 
+3. Fix for the JTAG disable/enable is linked with QA mode.
+
+Build 1200:
+1.updated the version 12.00 for the production , which uses the production public keys of EVERGLADES_ECDH_ROM_crt.pem in efuse generator tools/extractor tools
+
+Build 1100:
+1. Updated the .hex/.bin files of Label 0600 from the 
+//depot_pcs/FWEng/projects/Everglades/maincodeline/otp_prog_mplabx/...
+2.Updated the version 11.00 and tested in the FPGA which uses the public keys 
+//depot_pcs/FWEng/projects/Everglades/tools/efuse_generator/tools/ECDH_enrypt_crt.pem
+
+Build 1000:
+1. WDT delay value is not updated
+2. From the command line option ,check  for the mobile/desktop/comparator to be shown to GUI, 
+    multiple command option will be available together with mobile & comparator.
+   with multiple command of desktop & comparator wont be available which is based on the datasheet.
+3. SQTP generattion added the check condition for mobile/desktop/comparator.
+
+Build 0900:
+1.32 byte wise lock is not working is not handled for custom input file for the user to enter the data
+2. WDT config 
+    Has no default timeout value 
+    On disable also this value is not reset to ‘0’ 
+3. JTAG default is set to disable? It is a change without modifications 
+4. Comparator enable bit position is misplaced to bit7 instead of bit0 
+5. Updated the error scenario for efuseconfig.ini when they have updated the wrong values in the file to generate the SQTP file
+Build 0800:
+1. updated the version 8.0
+2. Code updated to read the FPGA test public keys of ECDH_enrypt_crt.pem
+3.Tools used the key extractor of Everglades_key_extractor_and_enc.exe which reads the FPGA used public key of ECDH_enrypt_crt.pem where it update with hash value in the array to validate the ECDH public key
+4. Cleaned the romaes part in the code and unwanted section
+
+Build 0700:
+1.1) Added the "settings" title for the setting button , if it open multiple times which will show the warning dailog box with yes or no option with description to follow
+2) AES mandatory features error scenario to use only with ECDH key or ECDH encryption keys
+
+Build 0600:
+1. Based on the custom region programmed , it will ask the user to give "write lock" the custom programmed region.
+2. Note : Custom region from 480-991 of 512 bytes
+3. Tested with the sqtp process for selecting the custom region of OTP 1-16 , need to specify the region to write lock the
+    programmed region, specified the user case of custom region to lock in 'efuseconfig.ini'
+
+Build 0500:
+1) JTAG when we slect for the enable, it writes with the address of data in header file with "zero", it has been taken care.
+2) When we selected for the encryption option of ECDH that time only it should show the option of LOCK ECHD pub II key to be available to the user
+
+Build 0400:
+1. Updated the write lock varaible in the efuseconfig.ini to give the user to write lock the custom region from 480-991
+    , which is based on the customer file size.
+2. Updated the sqtp for the customer region in efuse generator utility for otp_write_lock of the custom region of the
+    range 480-991
+
+Build 0300:
+1. Update the features of Desktop, Mobile, Comparator of Everglades efuse generator Utiltiy
+2. Compared the efuse_data.h of all the features generated by the Utility
+
+
+Build 0200:
+1. Updated the Mobile, Desktop features supported bit.
+2. Desktop features will be shown in GUI using the command line option "-d D"
+   for DSW_PWROK ,SUS_5V
+3. Mobile features will be shown in GUI using the command line option "-m M"
+  for mobile of DPWROK bit
+4. Comparator features will be shown in GUI using the command line option "-c C"
+  for comparator.
+
+Build 0200:
+1) Updated the new offset for JTAG/Authentication/AES/DSWpWROK
+2) Added the new delay of 150ms delay
+3) Added the TAG0/TAG1 in the new offset in the LSB
+
+
+Build 0100:
+1. Branched from  //depot_pcs/FWEng/projects/CEC1702/tools/efuse_generator_B0_340/ to //depot_pcs/FWEng/projects/Everglades/tools/efuse_generator/
+
+ Build with Python and Packaged with Pyinstaller 
+   Python Version Used --> Python 3.6.0
+  Openssl version ---> OpenSSL-Win32

@@ -1,0 +1,16 @@
+Transfer of ownership TOO tool :
+Tool used to transfer the Image to another Image
+
+Build 0300:
+1. Added the UI With all the basic RPMC I2C command fields  
+
+Build 0200:
+1. Added the GUI related to different RPMC I2C transfer command
+
+Build 0100:
+1. Intial version of the tool to have basic owner image transfer 
+
+
+GENERAL DESCRITPION:
+Visual studio 2015
+WPF C#

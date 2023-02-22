@@ -1,0 +1,30 @@
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number:
+            d5:4d:f0:06:9c:af:ae:55
+    Signature Algorithm: ecdsa-with-SHA1
+        Issuer: C=US, ST=NYC, L=Hauppauge, O=MCHP, OU=CPG-FW, CN=CEC1702
+        Validity
+            Not Before: Jul 15 16:40:58 2019 GMT
+            Not After : Jul 12 16:40:58 2029 GMT
+        Subject: C=US, ST=NYC, L=Hauppauge, O=MCHP, OU=CPG-FW, CN=CEC1702
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (384 bit)
+                pub: 
+                    04:70:b3:d0:f4:db:b0:2b:37:b0:2b:c6:57:d8:8c:
+                    4d:a3:7f:53:8f:ff:2e:a1:55:ed:93:d7:86:60:fd:
+                    9b:c9:9e:fe:5d:51:1e:11:dd:fd:0c:4e:2b:1b:68:
+                    38:d3:55:ee:87:3a:19:31:61:f0:02:54:33:8b:9d:
+                    bc:d2:6c:11:a0:00:0f:24:32:59:85:27:1c:34:4a:
+                    ae:8f:92:b0:5d:23:33:eb:59:80:df:63:4f:fe:42:
+                    f1:69:02:b4:6c:d5:0a
+                ASN1 OID: secp384r1
+    Signature Algorithm: ecdsa-with-SHA1
+         30:65:02:31:00:8b:e8:82:17:fe:a7:5e:ff:66:cb:c5:89:43:
+         ce:cb:7c:0b:f1:d0:3f:e4:bb:66:66:a3:9e:77:ce:b9:dc:15:
+         3a:44:7c:c5:c4:41:1d:f9:03:45:c6:90:ab:89:59:3a:7d:02:
+         30:0f:76:a8:82:9d:03:c4:93:6b:48:83:00:b0:bc:ab:d0:ec:
+         a9:d7:84:03:fc:47:ba:9a:1d:bf:45:10:ba:02:52:3a:86:50:
+         85:48:bb:f5:e3:2c:b1:35:58:58:45:2c:2c

@@ -1,0 +1,7 @@
+device PIC32CX0525SG12144
+hwtool PICkit4
+program OTP_read.X.production.elf
+reset
+run
+wait 7000
+quit

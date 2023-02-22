@@ -1,0 +1,30 @@
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number:
+            cc:d9:77:48:94:5b:47:24
+    Signature Algorithm: ecdsa-with-SHA1
+        Issuer: C=US, ST=NYC, L=Hauppauge, O=MCHP, OU=CPG-FW, CN=GLACIER
+        Validity
+            Not Before: Aug 18 17:46:04 2020 GMT
+            Not After : Aug 16 17:46:04 2030 GMT
+        Subject: C=US, ST=NYC, L=Hauppauge, O=MCHP, OU=CPG-FW, CN=GLACIER
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (384 bit)
+                pub: 
+                    04:93:12:17:b8:e2:65:d2:0b:d4:2e:8f:45:ae:e1:
+                    67:44:d7:4b:4c:2b:f3:bb:d3:24:d7:f9:0b:b0:2d:
+                    8b:4f:a8:c0:34:91:08:cd:79:8c:1d:48:ae:fd:a8:
+                    98:02:70:4c:57:6c:80:54:1c:2b:14:fc:25:c1:d0:
+                    2c:50:62:df:bc:44:81:58:02:8e:f5:57:cb:97:0f:
+                    45:fe:00:5e:f8:00:37:f4:19:31:01:7e:c5:df:b4:
+                    b7:37:d3:93:10:ce:52
+                ASN1 OID: secp384r1
+    Signature Algorithm: ecdsa-with-SHA1
+         30:66:02:31:00:d4:c3:9d:d7:66:4a:28:d6:93:63:f2:22:c2:
+         45:d1:21:12:99:a8:ea:ee:ec:ff:9a:0a:aa:65:f0:9e:d2:79:
+         c6:85:ef:bc:86:25:1c:08:cf:6e:5c:ce:09:ba:14:c9:cd:02:
+         31:00:dc:0f:f8:03:3e:19:c7:a0:ba:ab:4d:4b:ab:eb:7e:bb:
+         3c:8b:b9:04:f9:1f:5c:66:36:61:bc:61:51:78:05:b8:69:15:
+         99:08:12:50:a0:ab:77:e4:9e:93:b2:49:f9:ef

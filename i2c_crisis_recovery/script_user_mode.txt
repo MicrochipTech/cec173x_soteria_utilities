@@ -1,0 +1,25 @@
+:***************************************************************************************************
+: I2C Utility supporting Script for sending command receving command and sending file
+: 
+: Refer docs for command Usage 
+:
+:***************************************************************************************************
+: Executes I2c User Mode Commands
+
+: Write data
+i2c -u -w -d 65 -f inputs/header.bin 
+
+: Read data single byte
+i2c -u -r 
+
+: Read data to file
+i2c -u -r -n 64 -f read.bin 
+
+: read data in loop with delay
+i2c -u -r -n 64 -f read.bin -c 5 -t 1000
+
+: Write and read data in loop
+i2c -u -wr -d 71 27 ae 00 f5 -n 7 -c 10
+
+: Get i2c status
+i2c -u -stat

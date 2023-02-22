@@ -1,0 +1,7 @@
+; EVERGLADES test keys  
+
+[KEY "0"]
+ECDSAPrivKeyFile = efuse/test_keys/ec384.pem
+ECDSAPrivKeyPassword = ec384
+ECDSAPubKeyCrtFile = efuse/test_keys/ec384_crt.pem
+

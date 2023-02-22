@@ -1,0 +1,1077 @@
+﻿Usage Doc for the SPI Image generator 
+=====================================
+; CEC173x SPI Image Generator configuration file 
+; CEC173x_SPI_GEN  Version 64.0 06/29/2022 Label:2400
+; spi_cfg.ini Version 64.0 06/29/2022 Label:2400
+; spi cfg.ini is respective to the APCFG table: Major version 1 , Minor version 23
+
+SPI Image Utility - 
+    > secureboot_spi_image_gen_3.exe 
+            -i <cfg_file_name> 
+
+Running "secureboot_spi_image_gen_3.exe" from command prompt will take 
+    "spi_cfg.txt" as a default configuration file and 
+    generators the output "spi_image.bin" , spi_image_port_x_comp_x.bin
+    where x range from 0-1
+
+Other options:
+==============    
+    -i cfg_file_name 
+        Specifies the text config file for the SPI chip & images.
+        Defaults to spi_cfg.txt
+
+
+        
+Configuration Details:
+======================        
+CEC173x SPI Image Generator configuration file 
+
+SPI Configuration:
+-----------------
+    [SPI]
+    ;SPI Flash Image SIze in Megabits 128 =>  16MB; 256 = 32 MB
+    SPISizeMegabits = 128
+    
+Device Configuration:
+--------------------
+    [DEVICE]
+    ;Tag0 address for the image header to be located   
+    TagAddr0 = <hex value Byte>
+    
+    ;Tag1 address for the image header to be located   
+    TagAddr1 = <hex value Byte> 
+    
+    ; Device Paltform ID specifies the paltform intended for the code bring-up
+    BoardID = <hex value Word>
+    
+    ;ECDH2 Public key to decrypt the Image encryption Private key in efuse 
+    ;Output from the Efuse generator tool total 96 Bytes
+    DevECDH2Pubkey =  <Binary file . bin> 
+    
+    ;Key Hash Blob Base address for primary and fallback image
+    KeyHashBlobAddr0 = <Key hash Blob SPI address in Hex>
+    KeyHashBlobAddr1 = <Key hash Blob SPI address in Hex>
+    
+Image Details at Tag 0
+    [IMAGE "0"]
+    ;Noof Executable images present
+    NoofImages = 1 \ 2
+        
+    ;Firmware Image1 Application binary image
+    IMG1BinFile = <Application Binary file . bin>
+    
+    ;Application Image1 firmware load address in SRAM
+    IMG1LoadAddress = <Load address in Hex>
+    
+    ;IMG1EntryAddress = the Entry(Reset) address pointer for the Firmware image
+    ; If the Filed is left empty the tool will fill in the entry\reset address 
+    ; from offset 0x4 of input Application binary which is the reset handler
+    IMG1EntryAddress = 0 or <Entry address in Hex if known>        
+    
+    ;Firmware Image2 Application binary image
+    IMG2BinFile = <Application Binary file . bin>
+        
+    ;Application Image2 firmware load address in SRAM
+    IMG2LoadAddress = <Load address in Hex>
+    
+    ;IMG2EntryAddress = the Entry(Reset) address pointer for the Firmware image
+    ; If the Filed is left empty the tool will fill in the entry\reset address 
+    ; from offset 0x4 of input Application binary which is the reset handler
+    IMG2EntryAddress = 0 or <Entry address in Hex if known>
+    
+    ;Image location in the SPI Flash
+    FwLocation = <Hex value Dword>
+    
+    ; FwOffset - the Offset to palce the image from the header 
+    ; 0 means append to the end of header. 
+    ; FW will be located at ImageLocation + FWOffset following the header
+    FwOffset = 0 or <Hex value Dword>    
+    
+    ; SPI read frequency supported 12 16 24 48 96 in Mhz
+    SpiFreqMHz = select any frequency from above 
+    
+    ; SPI Read mode configuration supported "slow" or "fast" or "dual" or "quad"
+    SpiReadCommand = slow / fast / dual / quad
+    
+    ; If need to send QUAD enable for the SPI quad command 0x6B for the SPI
+    ; component used.
+    EnSpiEQIOComp0 = false / true
+    EnSpiEQIOComp1 = false / true
+    
+    ; SPI pin drive strength: 2, 4, 8, or 12 mA
+    SpiDriveStrength = Select Drive strength from above list
+    
+    ; SPI pin slew rate slow(false) or fast (true)
+    SpiSlewFast = false / true
+
+    ; SPI Component 0 Flash enable programming for the Drive Strength udpate for 
+    Comp0ProgDrvStrenEN = false / true
+    
+    ; SPI Component 0 Flash Programming write command format 1 byte or 2 byte
+    Comp0WritCmdTotByts = 1 / 2
+    
+    ; SPI Component 0 Read Command for current Drive Strength Congifuration 
+    Comp0ReadCmdByte  = <Read Command SPI flash dependent>  
+    
+    ; SPI Component 0 Write Command to set desired Drive Strength Congifuration 
+    Comp0WritCmdByte = <Write Command SPI flash dependent>     
+    
+    ; SPI Component 0 is used to program desired drive strength bit value
+    Comp0DrvValue = 1 to 3 bits in a SPI Flash Configuration register    
+    
+    ; SPI Component 0 Mask value used to clear the current drive strength bit 
+    ; value, while preserving the other configuration bits
+    Comp0DrvMask = Drive strength Bit mask value
+    
+    ; SPI Component 1 Flash enable programming for the Drive Strength udpate for 
+    Comp1ProgDrvStrenEN = false / true
+    
+    ; SPI Component 0 Flash Programming write command format 1 byte or 2 byte
+    Comp1WritCmdTotByts = 1 / 2 
+    
+    ; SPI Component 0 Read Command for current Drive Strength Congifuration 
+    Comp1ReadCmdByte  = <Read Command SPI flash dependent>  
+    
+    ; SPI Component 0 Write Command to set desired Drive Strength Congifuration 
+    Comp1WritCmdByte = <Write Command SPI flash dependent>     
+    
+    ; SPI Component 0 is used to program desired drive strength bit value
+    Comp1DrvValue = 1 to 3 bits in a SPI Flash Configuration register    
+    
+    ; SPI Component 0 Mask value used to clear the current drive strength bit 
+    ; value, while preserving the other configuration bits
+    Comp1DrvMask = Drive strength Bit mask value
+
+    ; Control Image status reporting with header if feature enabled in efuse.
+    EnFallImgStsRept = false / true
+    
+    ; Enable Authentication of Header and Firmware FW 
+    ; Generate ECDSA signature of Header, if false instead of the signatures 
+    ; contain the SHA384 of(object)
+    UseECDSA = false / true
+    
+    ; Authentication Key selection - use the valid key index to be used from the 
+    ; key bank in the SPI. Valid Key select offset values  = 0 - 7
+    ; Value 0 - indicates Key select @ 0 offset 
+    AuthenticateKeySelt = <Key select offset>
+    
+    ; Auto Key revocation Enable to revoke the key bits in the OTP by Bootrom.
+    ; By default Auto Key revovation is disabled or false
+    AutoKeyRevEn = false / true
+    
+    ; Key revocation persmission. Each bit will represent to the corresponding 
+    ; Key offset and the permission to revoke them. Total supported keys = 8 per
+    ; Owner
+    KeyRevPermission = <Hex value DWord>
+    
+    ; Auto Roll Back protection enable bit. set to true \ false for the feature
+    ; Enable. Default is disable or false
+    AutoRollBackProtEn = false / true
+    
+    ; Roll Back Protection Permission to enable the feature. Total 128 images 
+    ; will be supported and each bit represent the particular version of image
+    ; RollbackProtPerm031000 - is for images 31 - 0
+    ; RollbackProtPerm063032 - is for images 32 - 63
+    ; RollbackProtPerm095063 - is for images 64 - 95
+    ; RollbackProtPerm127096 - is for images 96 - 127
+    ; All values are in hex DWord
+    RollbackProtPerm031000 = <Hex value DWord>
+    RollbackProtPerm063032 = <Hex value DWord>
+    RollbackProtPerm095063 = <Hex value DWord>
+    RollbackProtPerm127096 = <Hex value DWord>
+        
+    ; May be any value 16-byte field reserved for customer use only
+    ECFWCnfgInfoDW0 = <Hex value DWord>
+    ECFWCnfgInfoDW1 = <Hex value DWord>
+    ECFWCnfgInfoDW2 = <Hex value DWord>
+    ECFWCnfgInfoDW3 = <Hex value DWord>
+    
+    ; Tagx Build number of the Application
+    TagBuildNumber = <Hex value Word>
+    
+    ; Current Version of the image - Valid values are from  0 - 127 bit[6:0]
+    ImageRevision = <Currrent revision number>
+    
+    ; This EC key pair is used to sign and verify/authenticate the FW Image Header, 
+    ; FW + optional key header optional key header.
+    ; EC Private Key in PEM encoded Openssl SSLeay encrypted format
+    ; This key is used to sign the Header and is NOT stored in the MEC chip.
+    ECDSAPrivKeyFile = Authentication Key.pem 
+    ECDSAPrivKeyPassword = PASSWORD for the Private Key ( Optional)
+
+    ; Header Flag for verifying Authentication enable and Disable
+    ; if proper keys are programmed in efuse - this flag can enable or disable
+    ; authentication. If Authentication bit is set in Efuse this is don't care
+    FwAuthtic = false / true
+    
+    ;To Encrypt Application binary using AES-256-CBC
+    FwEncrypt = false / true
+    
+    ; FW may be AES-256-CBC encrypted
+    ; The key is auto-generated and exchanged with the ROM using a procedure 
+    ; based on ECDH.
+    ; An EC Public Key is used by this program to Generate the AES-256 Key/IV 
+    ; and a 96-byte key header appended to the encrypted FW binary. 
+    ; The corresponding EC Private key is stored in the MEC chip and is used by 
+    ; ROM to re-generated the AES-256 Key & IV.
+    AesGenECPubKeyFile = <Encryption Certificate file >
+        
+    ; Attestation Key may be AES-256-CBC encrypted
+    ; Rom uses this Public key and generate a run time private key to form the 
+    ; shared secret using a procedure based on ECDH and generate the AES-256 Key/IV 
+    ECDHAKKEKPubKeyFile = <ECC 384 Certificate file \ Public key file >
+    
+    ;MCHP Dual signature enable
+    UseMCHPECDSA = false / true
+    
+    ;If Dual signature is enabled provide the key and password for the keys
+    MCHPECDSAPrivKeyFile = Signature Private Key.pem 
+    MCHPECDSAPrivKeyPassword = PASSWORD for the Private Key ( optional)
+        
+
+        ;-------------------------------------------------------------------------------------
+;--------------[APCFGHeader] Section -------------------------------------------------
+;------------To Provide the APCFG base address  -------------------------------------
+;--Fields for the  address of the AP_CFG_MEMORY_MAP BA 0/1 ---------------------------
+;--------------------------------------------------------------------------------------
+[APCFGHeader]
+APBAPTRBA0=0x00000010 ; AP_BA_PTR0_Base_Address OTP 808-811
+;flash 0/1
+APBAPTRBA0FlashComponent=0x0
+APBAPTRBA1=0x00000020 ; AP_BA_PTR1_Base_Address OTP 812-815
+;flash 0/1
+APBAPTRBA1FlashComponent=0x0
+
+APCFGTABLEBA0=0x00030000 ; stores the APCFG table 0 BA in APBAPTRBA0 
+APCFGTABLEBA0FlashComponent=0
+
+APCFGTABLEBA1=0x00038000 ; stores the APCFG table 1  BA in APBAPTRBA1
+APCFGTABLEBA1FlashComponent=0
+
+APPUBKeyHash0=0x00023000 ; stores the APPublicKeyHashBlob0 Base in APBAPTRBA0  
+APPUBKeyHash0FlashComponent=0 
+
+APPUBKeyHash1=0x00024000 ; stores the APPublicKeyHashBlob1 Base in APBAPTRBA1 
+APPUBKeyHash1FlashComponent=0
+ 
+APFWImages = 1 ; AP_FW Image Count in OTP 905
+APPublicKeyCount = 32 ; AP_PubKey- Key Count in OTP 906
+;-------------------------------------------------------------------------------------
+;--------------[APCFGTABLE] Section ----------------------------------------------
+;------------To Provide the AP_CFG_MEMORY_MAP 0 fields -------------------------------
+;--Fields for the  Structure  AP_CFG_MEMORY_MAP BA 0 ---------------------------------
+;--------[APCFGTABLE "0" ] AP_CFG_MEMORY_MAP_0 -----------------------------------
+; If the AP_CFG_MEMORY_MAP_1 structure need to fill  ---------------------------------
+; Repeat the below table as  [APCFGTABLE "1"]  for AP_CFG_MEMORY_MAP_1--------------
+;--------------------------------------------------------------------------------------
+[APCFGTABLE "0" ]
+APCFGID = 0x0006 ;AP_CFG Identification, offset 0x0, size 2
+APCFGRollbackREVID = 0x01 ; AP_CFG Rollback Revision ID, offset 0x02, size 2
+APCFGCurrentREVMinor = 0x23 ; AP_CFG Current Revision, offset 0x02, size 2
+CustomerREV= 0x01 ; Customer Revision  , offset 0x04 , size 1
+AuthKeyHashSel=0x0 ; Authentication Key hash Select, offset 0x05 , size 1
+CustomerId=0x01 ; Customer ID , offset 0x06 , size 1
+APFWImageMapOffset =0x310 ; APFW image offset , offset 0x08 , size 4
+NoofAPImages =0x1 ;  number of AP FW image , offset 0xC, size 1
+;--------------------------------------------------------------
+StagedTagPayloadBA0 =0x60000 ;Staged TAG0 Payload BA,
+StagedTagSPIPortSelect0 =0
+StagedTagSPIFlashComponent0 =0x0
+RestoreTagPayloadBA0 =0x70000 ;Restore TAG0 Payload BA,
+RestoreTagSPIPortSelect0 =0x0
+RestoreTagSPIFlashComponent0 =0x0
+StagedTagPayloadBA1 =0x60000 ;Staged TAG1 Payload BA,
+StagedTagSPIPortSelect1 =0x0
+StagedTagSPIFlashComponent1 =0x0 ;Restore TAG1 Payload BA,
+RestoreTagPayloadBA1 =0x70000
+RestoreTagSPIPortSelect1 =0x0
+RestoreTagSPIFlashComponent1 =0x0
+TAGMaxPayloadSize0 =0x400 ; TAG0 Max Payload Size ,
+TAGMaxPayloadSize1 =0x400 ; TAG1 Max Payload Size ,
+
+
+;Features Options 1
+FEATUREOPTION1=0x20 ;Feature Options 1 ,
+
+;Feature Options 2
+FEATUREOPTION2=0x6C ;Feature Options 2 ,
+
+;Feature option 3
+FEATUREOPTION3 =0x0C ;Feature Options 3 ,
+FEATUREOPTION4 =0x0C ;Feature Options 4 ,
+
+ECFWMaskRegions=0x00 ; EC_FW Mask Regions 
+ECRegionBA0 =0x0000 ; EC Region 0 BA 
+ECRegionBA0SPIPortSelect =0
+ECRegionBA0SPIFlashCom =0
+ECRegionBA1 =0x0000 ; EC Region 1 BA 
+ECRegionBA1SPIPortSelect =0
+ECRegionBA1SPIFlashCom =0
+ECRegionBA2 =0x0000 ; EC Region 2 BA 
+ECRegionBA2SPIPortSelect =0
+ECRegionBA2SPIFlashCom =0
+ECRegionBA3 =0x0000 ; EC Region 3 BA 
+ECRegionBA3SPIPortSelect =0
+ECRegionBA3SPIFlashCom =0
+ECRegionBA4 =0x0000 ; EC Region 4 BA 
+ECRegionBA4SPIPortSelect =0
+ECRegionBA4SPIFlashCom =0
+ECRegionBA5 =0x0000 ; EC Region 5 BA 
+ECRegionBA5SPIPortSelect =0
+ECRegionBA5SPIFlashCom =0
+ECRegionBA6 =0x0000 ; EC Region 6 BA 
+ECRegionBA6SPIPortSelect =0
+ECRegionBA6SPIFlashCom =0
+ECRegionBA7 =0x0000 ; EC Region 7 BA 
+ECRegionBA7SPIPortSelect =0
+ECRegionBA7SPIFlashCom =0
+I2CCommandsSupportedAP0=0xFF ; I2C Commands Supported 
+I2CCommandsSupportedAP1=0xFF ; I2C Commands Supported 
+
+;Feature option 7
+FEATUREOPTION7=0x0 ; Feature Options 7 
+I2CCopyCommandConfigParam=0x00 ; I2C Copy Command Configuration Parameters 
+AP0Comp0Size=0x3F ; AP0 Component 0 Size 
+AP0Comp1Size=0x3F ; AP0 Component 1 Size 
+AP1Comp0Size=0x3F ; AP0 Component 2 Size 
+AP1Comp1Size=0x3F ; AP0 Component 3 Size 
+APCFGKeyRevPerm =0x0
+APCFGRollBackProtPerm=0x0
+FEATUREOPTION8=0x0
+FEATUREOPTION9=0x0
+FEATUREOPTION10=0x0
+FEATUREOPTION11=0x0
+FEATUREOPTION12=0x0
+FEATUREOPTION13=0x0
+FEATUREOPTION14=0x0
+FEATUREOPTION15=0x0
+FEATUREOPTION16=0x0
+FEATUREOPTION17=0x0
+HOSTPORTSEL=0x0
+PreBootPerOpcodesAP0Comp0=0x1002345678
+PreBootPerOpcodesAP0Comp1=0x1002345678
+PreBootPerOpcodesAP1Comp0=0x1002345678
+PreBootPerOpcodesAP1Comp1=0x1002345678
+PreBootKillmodeopcodesAP0Comp0 =0x1002345678
+PreBootKillmodeopcodesAP0Comp1 =0x1002345678
+PreBootKillmodeopcodesAP1Comp0 =0x1002345678
+PreBootKillmodeopcodesAP1Comp1 =0x1002345678
+PostBootPerOpcodesAP0Comp0=0x1002345678
+PostBootPerOpcodesAP0Comp1=0x1002345678
+PostBootPerOpcodesAP1Comp0=0x1002345678
+PostBootPerOpcodesAP1Comp1=0x1002345678
+PostBootKillmodeopcodesAP0Comp0=0x1002345678
+PostBootKillmodeopcodesAP0Comp1=0x1002345678
+PostBootKillmodeopcodesAP1Comp0=0x1002345678
+PostBootKillmodeopcodesAP1Comp1=0x1002345678
+NoofMemoryRegion=0x1
+MemoryAccessProtectBA=0x0
+MemoryAccessProtect=0x0
+AccessPreBootAPboot=0x0
+AccessPostBootAPboot=0x0
+MemoryRegion=0x1002345678
+LockopcodesFlashes=0x1002345678
+UseMCHPECDSA = true  ; AP_CFG Table Co-Signature offset AP_FW image map
+MCHPECDSAPrivKeyFile =input_test_keys/ec384.pem 
+MCHPECDSAPrivKeyPassword =ec384
+;-------------------------------------------------------------------------------------
+;--------------[APFWIMAGEMAP0 "0"] Section -------------------------------------------
+;------------To Provide the AP_FW_IMAGE_MAP  0 Table fields---------------------------
+;--Fields for the  Structure  AP_FW_IMAGE_MAP 0 ---- ---------------------------------
+;--This structure is repeated based on the APFWImages under the [APCFGTABLE 0] --
+; For ex : APFWImages = "n" , here n indicates number of AP images------------------
+;APFWImages =2 , AP_FW_MEMORY map table will be two---------------------------------
+;-----------[APFWIMAGEMAP0 "0"] & [APFWIMAGEMAP0 "1"] --------------------------------
+;--------------------------------------------------------------------------------------
+; AP_FW IMAGE MEMORY MAP TABLE 
+[APFWIMAGEMAP0 "0"]
+ImageBaseAddr   = 0x80000 ; Image n Base Address, offset 0x40h*n +0x00,size 4
+; SPI port select
+ImageSPIPort = 0x0
+; SPI flash component 
+ImageFlashComponent=0x0
+UseImageBinary = true           
+Imagebinary =AP0.bin
+ImageAttrib =0x7    
+UseSignedBinary = false             
+ImageSignatureAddr=0xE0000 ; Image n Signature , offset 0x40h*n +0x08,size 4
+ImageSignatureSPIPort=0x0
+ImageSignatureFlashComponent=0x0
+ImageSignaturebinary =newOrgSig.bin 
+
+GImageBA=0xF0000 ; Golden Image n Base Address , offset 0x40h*n +0x10,size 4
+GImageSPIPortSelect=0x0
+GImageSPIFlashComp=0x0
+UseGImageBinary = true
+GImagebinary =GAP0.bin
+GImageAttrib =0x7
+UseGSignedBinary = false 
+GImageSignAddr=0xE1000 ; 
+GImageSignSPIPortSelect=0x0
+GImageSignSPIFlashComp=0x0
+GImageSignaturebinary =signature.bin
+
+RImageBA=0xA0000 ; Restore Image n Base Address , offset 0x40h*n +0x30,size 4
+RSPIPortSelect=0x0
+RSPIFlashComp=0x0
+
+SImageBA =0xA0000
+SSPIPortSelect=0x0
+SSPIFlashComp =0x0
+
+APFWUniqueID =0x11
+
+Hashtable0AP0F0 =0xF90000
+Hashtable0AP0F0SPIPortSelect =0x0
+Hashtable0AP0F0SPIFlashComp =0x00
+
+Hashtable0AP0F1 =0x0
+Hashtable0AP0F1SPIPortSelect =0x00
+Hashtable0AP0F1SPIFlashComp =0x00
+
+Hashtable1AP1F0 =0x0000
+Hashtable1AP1F0SPIPortSelect =0x00
+Hashtable1AP1F0SPIFlashComp =0x00
+
+Hashtable1AP1F1 =0x0000
+Hashtable1AP1F1SPIPortSelect =0x00
+Hashtable1AP1F1SPIFlashComp =0x00
+
+
+
+[HASHTABLE0 "0" ]
+HashtableID =0x00
+Authkeysel =0x0
+HashtableminorREV =0x45
+HashtablemajorREV =0x67
+Hashtablesize = 0x14C
+KeyRevPermission =0x10
+RollbackProtPerm127096 =0x20
+RollbackProtPerm095064 =0x30 
+RollbackProtPerm063032 =0x40
+RollbackProtPerm031000 =0x50
+APFWID1 =0x11
+APFragmentSize =0x8080
+GAPFWID1 =0x11 
+GAPFragmentSize =0x8080 
+
+
+;-------------------------------------------------------------------------------------
+;--------------[APCFGTABLE] Section ----------------------------------------------
+;------------To Provide the AP_CFG_MEMORY_MAP 1 fields -------------------------------
+;--Fields for the  Structure  AP_CFG_MEMORY_MAP BA 1 ---------------------------------
+;--------[APCFGTABLE "1" ] AP_CFG_MEMORY_MAP_1 -----------------------------------
+; If the AP_CFG_MEMORY_MAP_1 structure need to fill  ---------------------------------
+; Repeat the below table as  [APCFGTABLE "1"]  For AP_CFG_MEMORY_MAP_1--------------
+;--------------------------------------------------------------------------------------
+[APCFGTABLE "1" ]
+APCFGID = 0x0006 ;AP_CFG Identification, offset 0x0, size 2
+APCFGRollbackREVID = 0x01 ; AP_CFG Rollback Revision ID, offset 0x02, size 2
+APCFGCurrentREVMinor = 0x23 ; AP_CFG Current Revision, offset 0x02, size 2
+CustomerREV= 0x01 ; Customer Revision  , offset 0x04 , size 1
+AuthKeyHashSel=0x0 ; Authentication Key hash Select, offset 0x05 , size 1
+CustomerId=0x01 ; Customer ID , offset 0x06 , size 1
+APFWImageMapOffset =0x310 ; APFW image offset , offset 0x08 , size 4
+NoofAPImages =0x1 ;  number of AP FW image , offset 0xC, size 1
+;--------------------------------------------------------------
+StagedTagPayloadBA0 =0x60000 ;Staged TAG0 Payload BA,
+StagedTagSPIPortSelect0 =0
+StagedTagSPIFlashComponent0 =0x0
+RestoreTagPayloadBA0 =0x70000 ;Restore TAG0 Payload BA,
+RestoreTagSPIPortSelect0 =0x0
+RestoreTagSPIFlashComponent0 =0x0
+StagedTagPayloadBA1 =0x60000 ;Staged TAG1 Payload BA,
+StagedTagSPIPortSelect1 =0x0
+StagedTagSPIFlashComponent1 =0x0 ;Restore TAG1 Payload BA,
+RestoreTagPayloadBA1 =0x70000
+RestoreTagSPIPortSelect1 =0x0
+RestoreTagSPIFlashComponent1 =0x0
+TAGMaxPayloadSize0 =0x400 ; TAG0 Max Payload Size ,
+TAGMaxPayloadSize1 =0x400 ; TAG1 Max Payload Size ,
+
+
+;Features Options 1
+FEATUREOPTION1=0x20 ;Feature Options 1 ,
+
+;Feature Options 2
+FEATUREOPTION2=0x6C ;Feature Options 2 ,
+
+;Feature option 3
+FEATUREOPTION3 =0x0C ;Feature Options 3 ,
+FEATUREOPTION4 =0x0C ;Feature Options 4 ,
+
+ECFWMaskRegions=0x00 ; EC_FW Mask Regions 
+ECRegionBA0 =0x0000 ; EC Region 0 BA 
+ECRegionBA0SPIPortSelect =0
+ECRegionBA0SPIFlashCom =0
+ECRegionBA1 =0x0000 ; EC Region 1 BA 
+ECRegionBA1SPIPortSelect =0
+ECRegionBA1SPIFlashCom =0
+ECRegionBA2 =0x0000 ; EC Region 2 BA 
+ECRegionBA2SPIPortSelect =0
+ECRegionBA2SPIFlashCom =0
+ECRegionBA3 =0x0000 ; EC Region 3 BA 
+ECRegionBA3SPIPortSelect =0
+ECRegionBA3SPIFlashCom =0
+ECRegionBA4 =0x0000 ; EC Region 4 BA 
+ECRegionBA4SPIPortSelect =0
+ECRegionBA4SPIFlashCom =0
+ECRegionBA5 =0x0000 ; EC Region 5 BA 
+ECRegionBA5SPIPortSelect =0
+ECRegionBA5SPIFlashCom =0
+ECRegionBA6 =0x0000 ; EC Region 6 BA 
+ECRegionBA6SPIPortSelect =0
+ECRegionBA6SPIFlashCom =0
+ECRegionBA7 =0x0000 ; EC Region 7 BA 
+ECRegionBA7SPIPortSelect =0
+ECRegionBA7SPIFlashCom =0
+
+
+I2CCommandsSupportedAP0=0xFF ; I2C Commands Supported 
+I2CCommandsSupportedAP1=0xFF ; I2C Commands Supported 
+ 
+
+
+
+;Feature option 7
+FEATUREOPTION7=0x0 ; Feature Options 7 
+
+I2CCopyCommandConfigParam=0x00 ; I2C Copy Command Configuration Parameters 
+
+AP0Comp0Size=0x3F ; AP0 Component 0 Size 
+AP0Comp1Size=0x3F ; AP0 Component 1 Size 
+AP1Comp0Size=0x3F ; AP0 Component 2 Size 
+AP1Comp1Size=0x3F ; AP0 Component 3 Size 
+
+APCFGKeyRevPerm =0x0
+APCFGRollBackProtPerm=0x0
+FEATUREOPTION8=0x0
+FEATUREOPTION9=0x0
+FEATUREOPTION10=0x0
+FEATUREOPTION11=0x0
+FEATUREOPTION12=0x0
+FEATUREOPTION13=0x0
+FEATUREOPTION14=0x0
+FEATUREOPTION15=0x0
+FEATUREOPTION16=0x0
+FEATUREOPTION17=0x0
+HOSTPORTSEL=0x0
+PreBootPerOpcodesAP0Comp0=0x0
+PreBootPerOpcodesAP0Comp1=0x0
+PreBootPerOpcodesAP1Comp0=0x0
+PreBootPerOpcodesAP1Comp1=0x0
+PreBootKillmodeopcodesAP0Comp0 =0x0
+PreBootKillmodeopcodesAP0Comp1 =0x0
+PreBootKillmodeopcodesAP1Comp0 =0x0
+PreBootKillmodeopcodesAP1Comp1 =0x0
+PostBootPerOpcodesAP0Comp0=0x0
+PostBootPerOpcodesAP0Comp1=0x0
+PostBootPerOpcodesAP1Comp0=0x0
+PostBootPerOpcodesAP1Comp1=0x0
+PostBootKillmodeopcodesAP0Comp0=0x0
+PostBootKillmodeopcodesAP0Comp1=0x0
+PostBootKillmodeopcodesAP1Comp0=0x0
+PostBootKillmodeopcodesAP1Comp1=0x0
+NoofMemoryRegion=0x1
+MemoryAccessProtectBA=0x0
+MemoryAccessProtect=0x0
+AccessPreBootAPboot=0x0
+AccessPostBootAPboot=0x0
+MemoryRegion=0x0
+LockopcodesFlashes=0x0
+
+UseMCHPECDSA = true  ; AP_CFG Table Co-Signature offset AP_FW image map
+MCHPECDSAPrivKeyFile =input_test_keys/ec384.pem 
+MCHPECDSAPrivKeyPassword =ec384
+
+
+
+
+;-------------------------------------------------------------------------------------
+;--------------[APFWIMAGEMAP1 "0"] Section -------------------------------------------
+;------------To Provide the AP_FW_IMAGE_MAP  1 Table fields---------------------------
+;--Fields for the  Structure  AP_FW_IMAGE_MAP 1 ---- ---------------------------------
+;--This structure is repeated based on the APFWImages under the [APCFGTABLE 1] --
+; For ex : APFWImages = "n" , here n indicates number of AP images------------------
+;APFWImages =2 , AP_FW_MEMORY map table will be two---------------------------------
+;-----------[APFWIMAGEMAP1 "0"] & [APFWIMAGEMAP1 "1"] --------------------------------
+;--------------------------------------------------------------------------------------
+; AP_FW IMAGE MEMORY MAP TABLE 
+[APFWIMAGEMAP1 "0"]
+ImageBaseAddr   = 0xC0000 ; Image n Base Address, offset 0x40h*n +0x00,size 4
+; SPI port select
+ImageSPIPort = 0x0
+; SPI flash component 
+ImageFlashComponent=0x0
+UseImageBinary = true           
+Imagebinary =AP0.bin
+ImageAttrib =0x7    
+UseSignedBinary = false             
+ImageSignatureAddr=0xE2000 ; Image n Signature , offset 0x40h*n +0x08,size 4
+ImageSignatureSPIPort=0x0
+ImageSignatureFlashComponent=0x0
+ImageSignaturebinary =newOrgSig.bin 
+
+GImageBA=0x100000 ; Golden Image n Base Address , offset 0x40h*n +0x10,size 4
+GImageSPIPortSelect=0x0
+GImageSPIFlashComp=0x0
+UseGImageBinary = true
+GImagebinary =GAP0.bin
+GImageAttrib =0x7
+UseGSignedBinary = false 
+GImageSignAddr=0xE3000 ; 
+GImageSignSPIPortSelect=0x0
+GImageSignSPIFlashComp=0x0
+GImageSignaturebinary =signature.bin
+
+RImageBA=0xA0000 ; Restore Image n Base Address , offset 0x40h*n +0x30,size 4
+RSPIPortSelect=0x0
+RSPIFlashComp=0x0
+
+SImageBA =0xA0000
+SSPIPortSelect=0x0
+SSPIFlashComp =0x0
+
+APFWUniqueID =0x12
+
+
+Hashtable0AP0F0 =0xFA0000
+Hashtable0AP0F0SPIPortSelect =0x0
+Hashtable0AP0F0SPIFlashComp =0x00
+
+Hashtable0AP0F1 =0x0
+Hashtable0AP0F1SPIPortSelect =0x00
+Hashtable0AP0F1SPIFlashComp =0x00
+
+Hashtable1AP1F0 =0x0000
+Hashtable1AP1F0SPIPortSelect =0x00
+Hashtable1AP1F0SPIFlashComp =0x00
+
+Hashtable1AP1F1 =0x0000
+Hashtable1AP1F1SPIPortSelect =0x00
+Hashtable1AP1F1SPIFlashComp =0x00
+
+
+
+[HASHTABLE1 "0" ]
+HashtableID =0x00
+Authkeysel =0x0
+HashtableminorREV =0x43
+HashtablemajorREV =0x66
+Hashtablesize =0x14c
+KeyRevPermission =0x10
+RollbackProtPerm127096 =0x20
+RollbackProtPerm095064 =0x30 
+RollbackProtPerm063032 =0x40
+RollbackProtPerm031000 =0x50
+APFWID1 =0x60 
+APFragmentSize =0x8080
+GAPFWID1 =0x80 
+GAPFragmentSize =0x8080 
+
+;-------------------------------------------------------------------------------------
+;--------------[APKEY "0"] Section ------------------------------------------------
+;------------To Provide the AP_FW_KEY Storage area fields---------------------------
+;--Fields for the  Structure  AP_FW KEY STORAGE --------------------------------------
+;---- It stores 32 public key area --------------------------------------------------
+;---It start at the APPubKeyBA in the [APCFGTABLE "0"] of the memory map table 0---
+;---It start at the APPubKeyBA in the [APCFGTABLE "1"] of the memory map table 1---
+; If suppose two public key , repeat the table with two times mentioned below--------
+;--------------------------------------------------------------------------------------
+; AP_FW IMAGE MEMORY MAP TABLE 
+[APKEY "0" ]
+APPrivateKeyFile=input_test_keys/ec384_plain_priv.pem
+APPublicKeyFile=input_test_keys/ec384_pub.pem
+
+
+[APKEY "1" ]
+APPrivateKeyFile=input_test_keys/ec_384_2.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_2.pem
+
+[APKEY "2" ]
+APPrivateKeyFile=input_test_keys/ec_384_3.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_3.pem
+
+[APKEY "3" ]
+APPrivateKeyFile=input_test_keys/ec_384_3.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_3.pem
+
+[APKEY "4" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "5" ]
+APPrivateKeyFile=ap_fw_test_keys/pvt_rsa_2k_1.pem
+APPublicKeyFile=ap_fw_test_keys/pub_rsa_2k_1.pem
+
+
+[APKEY "6" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "7" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "8" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "9" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "10" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "11" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "12" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "13" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "14" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "15" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "16" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "17" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "18" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "19" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "20" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "21" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "22" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "23" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "24" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "25" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "26" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "27" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "28" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "29" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "30" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[APKEY "31" ]
+APPrivateKeyFile=input_test_keys/ec_384_4.pem
+APPublicKeyFile=input_test_keys/ec_e384_pub_4.pem
+
+[IMAGE "0"]
+ImageLocation = 0x2000
+SpiFreqMHz = 48
+NoofImages = 1
+SpiReadCommand = quad
+SpiDriveStrength = 4
+SpiSlewFast = false
+SpiSignalControl = 0x00
+IMG1BinFile = secureboot_app.bin
+ImageRevision = 2
+FwOffset = 0
+IMG1LoadAddress = 0xD0000
+IMG1EntryAddress = 0x0000
+UseECDSA = true
+AuthenticateKeySelt = 2
+AutoKeyRevEn = false
+KeyRevPermission = 0x00
+AutoRollBackProtEn = false
+RollbackProtPerm031000 = 0x00
+RollbackProtPerm063032 = 0
+RollbackProtPerm095063 = 0
+RollbackProtPerm127096 = 0
+ECDSAPrivKeyFile = ECC384rKEY02.pem 
+ECDSAPrivKeyPassword = MCHPECC38402
+FwEncrypt = false
+AesGenECPubKeyFile = ECC384rPVTKEYEFUSE_crt.pem
+TagBuildNumber= 0
+Comp0ProgDrvStrenEN = false
+Comp0WritCmdTotByts = 0
+Comp0ReadCmdByte = 0    
+Comp0WritCmdByte = 0   
+Comp0DrvValue = 0       
+Comp0DrvMask = 0        
+Comp1ProgDrvStrenEN = false
+Comp1WritCmdTotByts = 0
+Comp1ReadCmdByte = 0
+Comp1WritCmdByte = 0    
+Comp1DrvValue = 0       
+Comp1DrvMask = 0
+EnFallImgStsRept = false
+ECFWCnfgInfoDW0 = 0xAA
+ECFWCnfgInfoDW1 = 0xDD
+ECFWCnfgInfoDW2 = 0xEE
+ECFWCnfgInfoDW3 = 0xBB
+ActiveVersion = 0x03
+FwAuthtic = true
+EnSpiEQIOComp0 = false
+[IMAGE "1"]
+ImageLocation = 0x10000
+SpiFreqMHz = 48
+NoofImages = 1
+SpiReadCommand = quad
+SpiDriveStrength = 4
+SpiSlewFast = false
+SpiSignalControl = 0x00
+IMG1BinFile = secureboot_app.bin
+ImageRevision = 2
+FwOffset = 0
+IMG1LoadAddress = 0xD0000
+IMG1EntryAddress = 0x0000
+UseECDSA = true
+AuthenticateKeySelt = 2
+AutoKeyRevEn = false
+KeyRevPermission = 0x00
+AutoRollBackProtEn = false
+RollbackProtPerm031000 = 0x00
+RollbackProtPerm063032 = 0
+RollbackProtPerm095063 = 0
+RollbackProtPerm127096 = 0
+ECDSAPrivKeyFile = ECC384rKEY02.pem 
+ECDSAPrivKeyPassword = MCHPECC38402
+FwEncrypt = false
+AesGenECPubKeyFile = ECC384rPVTKEYEFUSE_crt.pem
+TagBuildNumber= 0
+Comp0ProgDrvStrenEN = false
+Comp0WritCmdTotByts = 0
+Comp0ReadCmdByte = 0    
+Comp0WritCmdByte = 0   
+Comp0DrvValue = 0       
+Comp0DrvMask = 0        
+Comp1ProgDrvStrenEN = false
+Comp1WritCmdTotByts = 0
+Comp1ReadCmdByte = 0
+Comp1WritCmdByte = 0    
+Comp1DrvValue = 0       
+Comp1DrvMask = 0
+EnFallImgStsRept = false
+ECFWCnfgInfoDW0 = 0xAA
+ECFWCnfgInfoDW1 = 0xDD
+ECFWCnfgInfoDW2 = 0xEE
+ECFWCnfgInfoDW3 = 0xBB
+ActiveVersion = 0x03
+FwAuthtic = true
+EnSpiEQIOComp0 = false
+;-------------------------------------------------------------------------------------
+;--------------[ECKEY "0"] Section ------------------------------------------------
+;------------To Provide the ECDSA Key storage Hash area to be stored in the ;SPI flash at 
+;---------------------------the location of ECDSAKeyFlashAddr ---------------------------
+;--------------------------- Provide the ECDSA public key filename in pem format of P384 ;curve
+[ECKEY "0" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384.pem 
+ECDSAPrivKeyPassword = ec384
+ECPubKeyFile=fw_test_keys/ec384_crt.pem
+
+[ECKEY "1" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_1.pem 
+ECDSAPrivKeyPassword = ec384_1
+ECPubKeyFile=fw_test_keys/ec384_1_crt.pem
+
+
+[ECKEY "2" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_2.pem 
+ECDSAPrivKeyPassword = ec384_2
+ECPubKeyFile=fw_test_keys/ec384_2_crt.pem
+
+[ECKEY "3" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_3.pem 
+ECDSAPrivKeyPassword = ec384_3
+ECPubKeyFile=fw_test_keys/ec384_3_crt.pem
+
+[ECKEY "4" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_4.pem 
+ECDSAPrivKeyPassword = ec384_4
+ECPubKeyFile=fw_test_keys/ec384_4_crt.pem
+
+[ECKEY "5" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_5.pem 
+ECDSAPrivKeyPassword = ec384_5
+ECPubKeyFile=fw_test_keys/ec384_5_crt.pem
+
+[ECKEY "6" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_6.pem 
+ECDSAPrivKeyPassword = ec384_6
+ECPubKeyFile=fw_test_keys/ec384_6_crt.pem
+
+[ECKEY "7" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_7.pem 
+ECDSAPrivKeyPassword = ec384_7
+ECPubKeyFile=fw_test_keys/ec384_7_crt.pem
+
+[ECKEY "8" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_8.pem 
+ECDSAPrivKeyPassword = ec384_8
+ECPubKeyFile=fw_test_keys/ec384_8_crt.pem
+
+[ECKEY "9" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_9.pem 
+ECDSAPrivKeyPassword = ec384_9
+ECPubKeyFile=fw_test_keys/ec384_9_crt.pem
+
+[ECKEY "10" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_10.pem 
+ECDSAPrivKeyPassword = ec384_10
+ECPubKeyFile=fw_test_keys/ec384_10_crt.pem
+
+[ECKEY "11" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_11.pem 
+ECDSAPrivKeyPassword = ec384_11
+ECPubKeyFile=fw_test_keys/ec384_11_crt.pem
+
+[ECKEY "12" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_12.pem 
+ECDSAPrivKeyPassword = ec384_12
+ECPubKeyFile=fw_test_keys/ec384_12_crt.pem
+
+[ECKEY "13" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_13.pem 
+ECDSAPrivKeyPassword = ec384_13
+ECPubKeyFile=fw_test_keys/ec384_13_crt.pem
+
+[ECKEY "14" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_14.pem 
+ECDSAPrivKeyPassword = ec384_14
+ECPubKeyFile=fw_test_keys/ec384_14_crt.pem
+
+[ECKEY "15" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_15.pem 
+ECDSAPrivKeyPassword = ec384_15
+ECPubKeyFile=fw_test_keys/ec384_15_crt.pem
+
+[ECKEY "16" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_16.pem 
+ECDSAPrivKeyPassword = ec384_16
+ECPubKeyFile=fw_test_keys/ec384_16_crt.pem
+
+[ECKEY "17" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_17.pem 
+ECDSAPrivKeyPassword = ec384_17
+ECPubKeyFile=fw_test_keys/ec384_17_crt.pem
+
+[ECKEY "18" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_18.pem 
+ECDSAPrivKeyPassword = ec384_18
+ECPubKeyFile=fw_test_keys/ec384_18_crt.pem
+
+[ECKEY "19" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_19.pem 
+ECDSAPrivKeyPassword = ec384_19
+ECPubKeyFile=fw_test_keys/ec384_19_crt.pem
+
+[ECKEY "20" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_20.pem 
+ECDSAPrivKeyPassword = ec384_20
+ECPubKeyFile=fw_test_keys/ec384_20_crt.pem
+
+[ECKEY "21" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_21.pem 
+ECDSAPrivKeyPassword = ec384_21
+ECPubKeyFile=fw_test_keys/ec384_21_crt.pem
+
+[ECKEY "22" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_22.pem 
+ECDSAPrivKeyPassword = ec384_22
+ECPubKeyFile=fw_test_keys/ec384_22_crt.pem
+
+[ECKEY "23" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_23.pem 
+ECDSAPrivKeyPassword = ec384_23
+ECPubKeyFile=fw_test_keys/ec384_23_crt.pem
+
+[ECKEY "24" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_24.pem 
+ECDSAPrivKeyPassword = ec384_24
+ECPubKeyFile=fw_test_keys/ec384_24_crt.pem
+
+[ECKEY "25" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_25.pem 
+ECDSAPrivKeyPassword = ec384_25
+ECPubKeyFile=fw_test_keys/ec384_25_crt.pem
+
+[ECKEY "26" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_26.pem 
+ECDSAPrivKeyPassword = ec384_26
+ECPubKeyFile=fw_test_keys/ec384_26_crt.pem
+
+[ECKEY "27" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_27.pem 
+ECDSAPrivKeyPassword = ec384_27
+ECPubKeyFile=fw_test_keys/ec384_27_crt.pem
+
+[ECKEY "28" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_28.pem 
+ECDSAPrivKeyPassword = ec384_28
+ECPubKeyFile=fw_test_keys/ec384_28_crt.pem
+
+[ECKEY "29" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_29.pem 
+ECDSAPrivKeyPassword = ec384_29
+ECPubKeyFile=fw_test_keys/ec384_29_crt.pem
+
+[ECKEY "30" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_30.pem 
+ECDSAPrivKeyPassword = ec384_30
+ECPubKeyFile=fw_test_keys/ec384_30_crt.pem
+
+[ECKEY "31" ]
+ECDSAPrivKeyFile = fw_test_keys/ec384_31.pem 
+ECDSAPrivKeyPassword = ec384_31
+ECPubKeyFile=fw_test_keys/ec384_31_crt.pem
+
+
+
+
+¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+                                E.N.D  O.F  D.O.C.U.M.E.N.T
+¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤

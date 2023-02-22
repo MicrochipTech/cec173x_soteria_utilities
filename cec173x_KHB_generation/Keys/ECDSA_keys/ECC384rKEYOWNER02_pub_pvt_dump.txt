@@ -1,0 +1,21 @@
+Private-Key: (384 bit)
+priv:
+    00:d4:de:ac:05:11:e5:81:4b:17:c0:4a:b8:77:60:
+    29:cf:04:e9:b3:37:85:6e:6f:fa:b7:bb:1a:52:0c:
+    52:a4:14:f6:f5:11:6f:51:62:c6:9e:89:63:1b:e1:
+    62:c0:83:65
+pub: 
+    04:7b:40:a3:d4:25:25:41:55:7f:a2:da:1c:98:d3:
+    35:e4:f6:95:b8:51:08:b1:e1:4f:7e:c6:91:a7:d5:
+    fc:cd:b0:54:ee:eb:a5:06:8d:fb:f7:66:c8:0c:98:
+    0f:b7:cc:a7:64:da:48:90:c3:6c:52:da:4b:7b:a2:
+    55:a8:43:31:c9:c0:1c:e1:c5:4f:8f:31:7b:46:32:
+    dd:29:fd:97:70:16:2c:f7:2d:3d:55:fd:c5:68:5c:
+    98:7d:8d:5a:bb:29:fe
+ASN1 OID: secp384r1
+-----BEGIN EC PRIVATE KEY-----
+MIGkAgEBBDDU3qwFEeWBSxfASrh3YCnPBOmzN4Vub/q3uxpSDFKkFPb1EW9RYsae
+iWMb4WLAg2WgBwYFK4EEACKhZANiAAR7QKPUJSVBVX+i2hyY0zXk9pW4UQix4U9+
+xpGn1fzNsFTu66UGjfv3ZsgMmA+3zKdk2kiQw2xS2kt7olWoQzHJwBzhxU+PMXtG
+Mt0p/ZdwFiz3LT1V/cVoXJh9jVq7Kf4=
+-----END EC PRIVATE KEY-----

@@ -1,0 +1,39 @@
+:***************************************************************************************************
+: I2C Utility supporting Script for sending command receving command and sending file
+: 
+: Refer docs for command Usage 
+:
+:***************************************************************************************************
+
+: Crisis Recovery Mode Commands to update FW Image without authentication
+: The commands to be executed are preceed by 'i2c'
+
+: Initialize Host-Boot ROM Communication
+: Uncomment the below command to change retry count
+:i2c -cr -init -retry -c 5 -t 1000
+i2c -cr -init -retry 
+
+: Get FW Info
+i2c -cr -info
+
+: Change frequency 
+: Uncomment below command to change frequency
+: i2c -cr -freq 400
+
+: Change Baud 
+: Uncomment below command to change baud for UART
+: i2c -cr -baud 115200
+
+: Key Hash blob write with security check enabled
+i2c -cr -khb -f inputs/key_hash_blob.bin 
+
+: Header Write with security check enabled
+i2c -cr -hwr -f inputs/header.bin 
+
+: Fw image write security check enabled
+i2c -cr -fwr -f inputs/fw_image.bin
+
+: Load Image
+i2c -cr -sram 
+
+<EOF>   

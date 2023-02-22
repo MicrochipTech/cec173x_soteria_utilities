@@ -1,0 +1,17 @@
+; Everglades Flash update process configurable file
+[FLASH HEADER]
+ ;The port attribute is used to select which port(SHD_SPI or PVT_SPIor +INT_SPI) has to be programmed  
+Port = SHD_SPI
+ ;The component attribute is used to select the component (0 or 1); for internal flash component is 0 >> flash_header_cfg.txt
+Comp = 0 
+;The erase sequence attribute can be used to select the type of erase(chip_eraseor sector_erase) to be performed on given port 
+Erase sequence = chip_erase
+;The number of images attribute used to select the number of regions the user wants to program from the binary file
+;The number of images count should be 1 or 2 or 3
+Number of Images = 0
+Image 0 Program address = 0x0
+Image 0 Size = 0x1000
+Image 1 Program address = 0x0
+Image 1 Size = 0x0
+Image 2 Program address = 0x000
+Image 2 Size = 0x000

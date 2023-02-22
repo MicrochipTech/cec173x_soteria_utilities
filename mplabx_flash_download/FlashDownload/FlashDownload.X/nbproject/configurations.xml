@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="65">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="LoadableFiles"
+                   displayName="Prebuilt Files"
+                   projectFiles="true">
+      <itemPath>../flash_program_exec.X.production.hex</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../../../otp_prog/depot_pcs/FWEng/solutions/Glacier_GEN3/maincodeline/secureboot_app/build/secureboot_app.X/dist/default/production</Elem>
+    <Elem>../../../otp_prog/depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/build_dir/otp_prog.X/dist/default/production</Elem>
+    <Elem>..</Elem>
+    <Elem>../../../otp_prog/depot_pcs/FWEng/projects/Glacier/maincodeline/flash_program_exec_mplabx/build_dir/flash_program_exec.X/dist/default/production</Elem>
+    <Elem>../../../otp_prog/depot_pcs/FWEng/projects/Glacier/maincodeline/flash_program_exec_mplabx/build_dir/flash_program_exec.X/dist/default/debug</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="default" type="4">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>MEC1721N_B0_LJ</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>ICD4Tool</platformTool>
+        <languageToolchain></languageToolchain>
+        <languageToolchainVersion></languageToolchainVersion>
+        <platform>3</platform>
+      </toolsSet>
+      <packs>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="MEC17xx_DFP" vendor="Microchip" version="1.2.46"/>
+      </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+        <archiverTool>
+        </archiverTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <parseOnProdLoad>false</parseOnProdLoad>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+        <subordinates>
+        </subordinates>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <ICD4Tool>
+        <property key="memories.programmemory.ranges" value="0-57ffffff"/>
+        <property key="programmerToGoFilePath"
+                  value="D:/workspace/Flash_program_test/flash_download/FlahDownload.X/debug/default/FlahDownload_ptg"/>
+      </ICD4Tool>
+      <Tool>
+        <property key="memories.programmemory.ranges" value="0-57ffffff"/>
+        <property key="programmerToGoFilePath"
+                  value="D:/workspace/Flash_program_test/flash_download/FlahDownload.X/debug/default/FlahDownload_ptg"/>
+      </Tool>
+    </conf>
+  </confs>
+</configurationDescriptor>

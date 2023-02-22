@@ -1,0 +1,33 @@
+OTP programming for CEC173x DevBoard using MPLABX and ICD4
+
+This is a sample project used for OTP programming as per below procedure
+
+1.Open MPLABX and Under MPLAB X Options/Preferences -> Embedded -> Generic Settings
+	a.Set Debug Reset @ = Reset vector
+	b.Debug startup = Halt at Reset vector
+
+2. Open the mplabx_OTP_programming project. This is a prebuilt project for OTP programming using ICD4. 
+   Replace the otp_<0xx>.hex file in mplabx_OTP_programming folder with new otp_<0xx>.hex generated using OTP generator 
+
+3. Keep GPIO131 pin Low to enable OTP programming.
+
+4. Set this project as the main project.
+
+5. Debug Main project. The debugger should automatically stop after “Programming/Verify complete”.
+
+6. In the Execution Memory window, go to the address of the Reset_Handler() which is 0xE2EAC. Right click on this line and select “Set PC at Cursor”.
+
+7. Continue Debug. 
+   Two LED's were used for OTP programming status.
+
+   In Microchip EVB board, GPIO156 is LED5 & GPIO157 is LED4.
+
+   LED5  -  GPIO156 - at start this goes LOW, in case if this LED blinks - its OTP programming fail.
+
+   LED 4 -  GPIO157 - at start this goes High, at the completion of this OTP programming, this goes Low.
+				 - if OTP programming fail, this LED blinks.
+				 
+
+   OTP programming success without failure indication - LED5 (GPIO156) & LED4 (GPIO157) both turns OFF.
+
+7.	Power cycle the board

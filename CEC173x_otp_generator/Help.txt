@@ -1,0 +1,254 @@
+                CEC173x_OTPGen3.exe.exe Version 8.00 Usage
+                ----------------------------------------       
+Note : Based on the Data sheet some of the features will be listed 
+     select the Device Package available listed in the GUI
+     select the MFG/Prod/Dev  and it will list the supported features 
+     Refer the Datasheets and provide the proper value 
+     Version 3.08 with the GUI supported features
+
+01. 'Set Environment Variables'    - Settings
+   - Click on settings for the openSSL path dir set 
+   - Required to set only on first time launch of the program; 
+     later the details stored under config.ini file under the root 
+   - 'Generate Header File' is opted will generate a header file equivalent to 
+     the efuse bin file generated. Used for adding to any project environment
+   - 'Disable Warning Message' - if opted will disable the warning message 
+     before generating the efuse files 
+   - 'Generate SQTP File' - if opted will generate the SQTP file used for 
+     provisioning purpose. Please provide the Mask and Pattern number if known
+     others leave blank
+     Mask ex: SG0107,
+     Pattern ex: E107 for Engineering Samples, 107 for Production samples
+   - If the setting window has been selected and again want to open to change the Environment
+     variables , it will open the warning dailog box & follow the procedure mentioned in it
+     to change again the Environmental variables of openssl path, Generate header file,
+     SQTP process for generating the otp_files.
+02. 'Output Dir'   - Optional
+   - Select your output directory for the output files generated from the tools
+   - if left blank one will be generated runtime under <root>\otp\.. as
+        otp_<YYYYMMDD>_<WHHMMSS>
+03. Two folder will be created in the Output Dir on program execution
+     <otp_generator>  
+      |        
+      +---otp      
+           +--otp_<YYYYMMDD>_<WHHMMSS>   -> Output Dir self generated      
+              +---keys                     -> Contains all the keys
+              |       <ECDSA>.pem      -> ECDSA Self Signed Certificate   
+              |       <ECDSA>_csr.pem      -> ECDSA Certificate Request    
+
+              \---out_binaries  
+              |       otp_0x<CRC_CHECKSUM>.bin   -> updated Binary with otp details  
+              |       otp_0x<CRC_CHECKSUM>.hex   -> Equivalent hex file for download    
+              |            
+              \---otp_log.txt            -> otp Log file 
+04.'JTAG Register ' - Enable or Disable using Radio button
+   - JTAG register to support the Debug capability Lock and DEBUG_PU_EN 
+   - OTP offset 1010 Bit[7]
+05.'Authentication' - Enable or Disable using Radio button    
+   - if enabled Authentication bit will be set for the Header\image singing
+   - OTP offset 358 Bit[3]&Bit[0]
+
+06.'ECDSA Key Hash Available' - 
+   - click that if the hash bin is available 
+   - Select the SHA384(KHB ) Key Hash available
+   - Provide the SHA384(KHB ) Key Hash Bin using the browse option
+  If ECDSA P384 Key Hash is not available
+    Provide the ECDSA key 
+    SHA384(Owner 1 Public ) Key hash Generate- click the generate button and provide 
+    the key name/password to generate and press OK button to close that window
+   - OTP offset 368-415
+07. EC FW Encryption 
+    - EC FW encryption enable checkbox to enable
+    - Select Encruyption Key input to select the Provide ECDH keys
+               ECDH Private Key Encrypted -Direct Input
+  - Input ECDH Key
+  - Provide the 
+   - Enable or Disable using Radio button             
+   - if enabled Encryption keys will be generated for the image encryption
+   'ECDH Key' - Provide a name for the ECDH key If Encryption is enabled     
+   - No extension just a name EX: myECHDkey    
+   - NO special characters as key name
+   'ECDH password' - Password to protect the key file using AES-CBC mode
+                   - Optional 
+   'Encrypt ECDH Key' - Enable or Disable using Check button    
+   - If enabled will encrypt the ECDH key with the ROM ECDH-II public key with default
+   - Encrypt with ECDH key of Default ROM ECDH-II public key
+   - select the 'custom Input ECDH2 key" 
+    ECDH2 key to browse  and provide the with or without password for ECC private key in the tool
+    and ECDH2 public key to be updated in the OTP values
+  -  OTP offset 358 Bit[1]
+  - OTP offset 0-47 -> ECDH Private key 
+  - OTP offset 128-175 -> SHA384(ECDH II Public key)
+08. Input encryption ecdh key when the ECDH Private Key Encrypted -Direct Input is opted 
+    select the Enc ECDH Key Bin available 
+  Browse the Encrypted ECDH key binaries
+    select the ECDH II pub Bin key available 
+  Browse the ECDH II pub Bin key binaries 
+
+09.'AES Encryption Mandatory' - Enable or Disable using Radio button    
+   - if enabled AES Encryption Mandatory bit will be set; 
+   - Please select the option of ECDH key or ECDH with encryption 
+   to make use of AES Mandatory encryption bit
+   - If ECDH with or without encryption is not selected & if "AES encryption
+   mandatory" is enabled, will open the dialog box to check the ECDH key or with
+   encryption has been selected to make use of this features. 
+  - OTP offset 358 -> Bit[2]
+10. 'Fully Provisioned' - Enable or disbale using the Radio button
+  - OTP offset 358 Bit[7]
+11. Platform ID - Its a 2 byte value in HEX
+  - OTP offset 352-353
+12. Production Owner Debug - Its a 1 byte value in HEX
+  - OTP offset 347 Bit[4]
+13. Rollback protection byte 0-15 
+   Enter the 4 byte in the Rollback protection byte 0-3
+   Enter the 4 byte in the Rollback protection byte 4-7
+   Enter the 4 byte in the Rollback protection byte 8-11
+   Enter the 4 byte in the Rollback protection byte 12-15
+    For ex : Rollback protection byte 0-3  = 12345670
+           OTP = 320-323 , Data = 0x70 ,0x56 ,0x34,0x12    
+  For ex : Rollback protection byte 0-3 = 1234567F
+           OTP = 320-323 , Data = 0x70 ,0x56 ,0x34,0x12
+    - OTp offset 320-335 
+14. ECDSA key Revocation byte 0 
+   Enter 1 byte value in the UI 
+   - OTP offset 336 
+
+15. Enter the 1 byte value in the UI for the below feilds
+    - Security Features - OTP offset 354
+    - DICE RIOT & Optional Features - OTP offset 355
+    - Crisis Flash & Load Failure Recovery -OTP offset 356
+    - Optional Features - OTP offset 357
+    - Security Boot Features - OTP offset 359
+    - Custom Features - OTP offset 366
+    - Crisi Mode - OTP offset 367 
+    - Crisi mode 2  - OTP offset 365
+
+
+17.'Use Alternate Tag0 Location' - checkbox       
+   - If enabled alternate TAG0 Fields will be added to the otp data
+   Tag1 Alternate Location - checkbox to select 
+   - If enabled alternate TAG1 Fields will be added to the otp data 
+18.'TAG0 SPI Address Pointer (HEX)' - will be active if  'Use Alternate Tag0 Location ' is enabled   
+   - TAG0 SPI Address Pointer(HEX) - 4 byte
+   - Provide the hex bit for the Alternate TAG0 address
+    For ex : TAG0 SPI Address Pointer(HEX) = 12345678
+           OTP = 992-995 , Data = 0x78 ,0x56 ,0x34,0x12
+   - TAG0 Flash Component to select the comp 0/1
+   - Write Lock TAGx BA/Flash Comp1 BA to lock the Write lock 
+   - provide the hex bit for the Alternate TAG0 address
+    Flash comp 1 Base address(HEX) : it accepts 4 bytes ,256 byte boundary
+    For ex : Flash comp 1 Base address(HEX) =20000000
+       OTP Offset = 1000-10002 , Data = 0x00 ,0x00 ,0x20     
+  For ex : Flash comp 1 Base address(HEX) =02000000
+       OTP Offset = 1000-10002 , Data = 0x00 ,0x00 ,0x2      
+  For ex : Flash comp 1 Base address(HEX) =123456
+       It will show the error as to enter the 256 bytes
+19.'TAG1 SPI Address Pointer (HEX)' - will be active if  'Tag1 Alternate Location ' is enabled   
+   - TAG1 SPI Address Pointer(HEX) - 4 byte
+   - Provide the hex bit for the Alternate TAG1 address
+    For ex : TAG1 SPI Address Pointer(HEX) = 12345678
+           OTP Offset = 996-999 , Data = 0x78 ,0x56 ,0x34,0x12
+   - when the 'TAG0 SPI Address Pointer (HEX)' are provided and select the TAG1 alternate location
+   - On selecting the 'Tag1 Alternate Location ' it will set the Bit[0] in the offset 992
+   - TAG1 Flash Component to select the comp 0/1
+   - Write Lock TAGx BA/Flash Comp1 BA to lock the Write lock 
+   - provide the hex bit for the Alternate TAG1 address 
+   - If Tag1 Alternate Location is not selected , TAG1 address will be the 
+     TAG1 SPI Address Pointer(HEX) = TAG0 SPI Address Pointer(HEX) + 4   
+     Flash comp 1 Base address(HEX) : it accepts 4 bytes ,256 byte boundary
+      For ex : Flash comp 1 Base address(HEX) =20000000
+       OTP = 1000-10002 , Data = 0x00 ,0x00 ,0x20  
+  For ex : Flash comp 1 Base address(HEX) =123456
+       It will show the error as to enter the 256 bytes
+  For ex : Flash comp 1 Base address(HEX) =02000000
+       OTP = 1000-10002 , Data = 0x00 ,0x00 ,0x2      
+  For ex : Flash comp 1 Base address(HEX) =123456
+20.'Use Custom Space'  - Enable or Disable using Radio button     
+   - If enabled Custom otp data space from 576 can be used for storing user data    
+   - 'IDX' refer to the custom space offset from 576-863     
+   - 'Data' refer to the data to be filled in to the offset    
+   - Will accept in Hex or Dec format with Radio Button option 
+   - default as hex    
+   - use 'Enter' to add the data in    
+   - IDX will be checked against valid entry for the custom space
+   - OTP offset 576-863
+21.'Custom input'- will be active if 'Use Custom Space' is enabled    
+   - 'IDX' refer to the custom space offset from 576-863     
+   - 'Data' refer to the data to be filled in to the offset    
+   - Will accept in Hex or Dec format with Radio Button option 
+   - default as hex    
+   - use 'Enter' to add the data in    
+   - IDX will be checked against valid entry for the custom space 
+   - Once the date has been Entered into the custom region, 
+   it will open the "Dialog" box will ask with "Yes" or "NO" 
+   to write the lock bit for the custom region which is programmed  
+   - From pop-up window select 'Auto Refresh' to show the content of the custom
+     data field
+22.'Custom input from file' - Browse the file which contains the custom keys to
+   - store in the custom otp area. The input file should be in hex format    
+   - Expected file input will be 512 Bytes    
+   - ex: abcdef123456879adfadfdeadbeefadf124565987542132132
+   - Once the date has been selected from the local drive of the hex file into 
+   the custom region, it will open the "Dialog" box will ask with "Yes" or "NO" 
+   to write the lock bit for the custom region which is programmed
+   - For Viewing the content of the Custom data use the 'View' button      
+23. Write/Read lock byte 0-3 / CFG lock byte 0-5
+24.'GENERATE_OTP_DATA' 
+   - Warning message will pop-up by default for the options selected for otp
+   - Warning can be disabled fro the settings window        
+   - select 'Quit' or 'Continue' to complete the operation        
+   - 'Quit' will exist out with out generating any output files with           
+      default menu option        
+   -'Continue' will proceed to generate the otp files      
+   - will generate the otp data and merge with the otp_prog_original.bin to 
+     have the proper bits sets for the options selected.
+   - output files will be generated under the 'Output Dir' 
+   - Will generate header file otp_data.h if opted from setting window
+   - Generate the hex and bin files under the extension to show the crc32 checksum
+     for th eoutput binaries 
+   For ex :
+   otp_0xb3bd4bcc.hex  -> crc32 checksum 0xb3bd4bcc
+   otp_0xdd5c950a.bin  -> crc32 checksum 0xdd5c950a
+--------------------------------------------------------------------------------
+How to execute the CEC173x otp generator Utility where
+features to be shown in GUI     
+Use the command as follows :
+1. - Double click the "CEC173x_OTPGen3.exe" 
+
+   select the Device Package available:
+   -Soteria-G3
+   CAUTION: Please check the Feature available in the given package
+   Give "Ok" button , will open the other window which will generate the 
+   otp binaries (which will lock the "ok" button & device selection option 
+   in the first window will be disabled,once close that second window of efuse 
+   generator Utility or click the "quit" button which is shown in the second window, 
+   press "Refresh" button to enable the first window of device selection package 
+   in the Utility.
+ 
+
+ ------------------------------------------------------------------------
+
+ Command line Execution :
+1. Configuration INI file is the otpconfig.ini
+  CEC173x_OTPGen3.exe -t Input_Configuration\otpconfig.ini
+2. Dump the otp binaries into the otp log
+   CEC173x_OTPGen3.exe -o otp_0x184dde1a.bin
+
+Input Configuration : sample otp configuration file at Input_Configuration\otpconfig.ini
+
+Output files:
+otp in hex/bin format
+otp_data in header file format
+otp dump and otp checker in log file format
+
+cec173x_KHB_generation.exe will generate the SHA384(KeyHashBlob).bin ( To be update in the otp offset 368-415)
+
+SHA384(KeyHashBlob).bin image can be provided in the otpconfig.ini under the below section
+ ; OTP offset 368-415 => Owner of the KHB =>total 48 bytes
+[OWNERKHB]
+UseOWNERKHB=false
+OWNERKHB_Bin=SHA384(KeyHashBlob).bin
+
+UI tool can provide the SHA384(KeyHashBlob).bin to update the otp offset 368-415 
+under the ECDSA Key Hash Bin Available-> SHA384(KHB) Hash available->SHA384(KHB) Hash Bin->SHA384(KeyHashBlob).bin
+--------------------------------------------------------------------------------    

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>FlahDownload</name>
+            <creation-uuid>d8788d38-c2ba-4bfd-8ee3-6527d55311ce</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <c-extensions/>
+            <cpp-extensions/>
+            <header-extensions/>
+            <asminc-extensions/>
+            <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>../../../otp_prog/depot_pcs/FWEng/solutions/Glacier_GEN3/maincodeline/secureboot_app/build/secureboot_app.X/dist/default/production</sourceRootElem>
+                <sourceRootElem>../../../otp_prog/depot_pcs/FWEng/projects/Glacier/maincodeline/otp_prog_mplabx/build_dir/otp_prog.X/dist/default/production</sourceRootElem>
+                <sourceRootElem>..</sourceRootElem>
+                <sourceRootElem>../../../otp_prog/depot_pcs/FWEng/projects/Glacier/maincodeline/flash_program_exec_mplabx/build_dir/flash_program_exec.X/dist/default/production</sourceRootElem>
+                <sourceRootElem>../../../otp_prog/depot_pcs/FWEng/projects/Glacier/maincodeline/flash_program_exec_mplabx/build_dir/flash_program_exec.X/dist/default/debug</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>default</name>
+                    <type>4</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
+        </data>
+    </configuration>
+</project>

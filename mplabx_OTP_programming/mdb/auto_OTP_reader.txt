@@ -1,0 +1,10 @@
+device PIC32CX0525SG12144
+set system.yestoalldialog  true
+set system.disableerrormsg true
+set system.disableoutput true
+hwtool icd4
+program otp.elf
+reset
+run
+wait 7000
+quit

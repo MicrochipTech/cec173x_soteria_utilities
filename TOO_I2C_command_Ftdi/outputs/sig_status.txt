@@ -1,0 +1,4 @@
+Verified OK
+Check_signature.py script to validate signature of the given binary 
+
+Check_signature.py Exit

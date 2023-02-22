@@ -1,0 +1,46 @@
+; Glacier configuration file key hash
+[SPI]
+SPISizeMegabits = 128
+KeyHashLoc = 0x1000
+
+[OWNERS]
+Owner01PvtKeyFile = ../../Keys/ECDSA_keys/ECC384rKEYOWNER01_raw.pem
+
+; Provide the Public key offset and the pulib key 
+; The following keys formats will be accepted
+; A Private key is          
+;               ECDSAPvtKeyFile = < pem private key >
+; or a Pubkeys either in PEM or CRT fomrat 
+;               ECDSAPubKeyFile = < pem public key >
+; Total 8 Keys will be accepted max [KEY "7"]
+
+[KEY "0"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY00_crt.pem
+
+[KEY "1"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY01_crt.pem
+
+[KEY "2"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY02_crt.pem
+
+[KEY "3"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY03_crt.pem
+
+[KEY "4"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY04_crt.pem
+
+[KEY "5"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY05_crt.pem
+
+[KEY "6"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY06_crt.pem
+
+[KEY "7"]
+ECDSAPubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEY07_crt.pem
+
+[UPDTKEY]
+UpdatePubKeyFile = ../../Keys/ECDSA_keys/ECC384rKEYOWNER01_crt.pem
+
+[ECFWENTRY]
+EcfwEntryData = ec_fw_entry_hash_blob.bin
+

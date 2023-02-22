@@ -1,0 +1,34 @@
+;-------------------------------------------------------------------------------------
+;--------------[MERGE "0"] Section ---------------------------------------------------
+;--This section has detials of the given image to be merged from the user binary------
+;It has fields to have the from source file to be copied to the destination file
+; with the specified location / total length 
+; If you want to call the merge.exe for multiple times , create separate section of 
+; [MERGE "0" ] , [MERGE "1" ] [MERGE "3"]
+;------------------------------------------------------------------------------------
+[MERGE "0"]
+FROM_FILE = cert.bin
+FROM_OFFSET =0
+TO_FILE = spi_image.bin
+TO_OFFSET =10000
+LENGTH =262
+
+;-------------------------------------------------------------------------------------
+;--------------[MERGE "1"] Section ---------------------------------------------------
+;--This section has detials of the given image to be merged from the user binary------
+;It has fields to have the from source file to be copied to the destination file
+; with the specified location / total length 
+; If you want to call the merge.exe for multiple times , create separate section of 
+; [MERGE "0" ] , [MERGE "1" ] [MERGE "3"]
+;------------------------------------------------------------------------------------
+[MERGE "1"]
+FROM_FILE = OTP_DEVIK_SIGNED.bin
+FROM_OFFSET =0
+TO_FILE = spi_image.bin
+TO_OFFSET =10400
+LENGTH =291
+
+
+;*******************************************************************************
+;******************** E . N . D . . O . F . . F . I . L . E ********************
+;*******************************************************************************

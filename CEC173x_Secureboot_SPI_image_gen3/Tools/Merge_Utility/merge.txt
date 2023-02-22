@@ -1,0 +1,35 @@
+;-------------------------------------------------------------------------------------
+;--------------[MERGE "0"] Section ---------------------------------------------------
+;--This section has detials of the given image to be merged from the user binary------
+;It has fields to have the from source file to be copied to the destination file
+; with the specified location / total length 
+; If you want to call the merge.exe for multiple times , create separate section of 
+; [MERGE "0" ] , [MERGE "1" ] [MERGE "3"]
+;------------------------------------------------------------------------------------
+[MERGE "0"]
+FROM_FILE = KeyHashBlob.bin
+FROM_OFFSET =00000
+TO_FILE = spi_image.bin
+TO_OFFSET =0x1000
+LENGTH =2d0
+
+
+;-------------------------------------------------------------------------------------
+;--------------[MERGE "1"] Section ---------------------------------------------------
+;--This section has detials of the given image to be merged from the user binary------
+;It has fields to have the from source file to be copied to the destination file
+; with the specified location / total length 
+; If you want to call the merge.exe for multiple times , create separate section of 
+; [MERGE "0" ] , [MERGE "1" ] [MERGE "3"]
+;------------------------------------------------------------------------------------
+
+[MERGE "1"]
+FROM_FILE = KeyHashBlob.bin
+FROM_OFFSET =00000
+TO_FILE = spi_image.bin
+TO_OFFSET =0x1500
+LENGTH =2d0
+
+;*******************************************************************************
+;******************** E . N . D . . O . F . . F . I . L . E ********************
+;*******************************************************************************

@@ -1,0 +1,143 @@
+Description:
+    This is base codeline for I2C Crisis Recovery Utility.
+    
+    Build 1100:
+		1. Implemented the Send/Response command for the 
+	WRITE_RPMC_CONTAINER_COMMAND_REGISTER (0x40) =>  i2c -cr -creg    
+ 	WRITE_EC_FW‐TO‐BROM_SRAM_MAILBOX (0x41)  =>  i2c -cr -cmbox
+	GET_RPMC_OWNER_CONTAINER Status (0x42) =>  i2c -cr -csts
+	RESTORE_OWNER_CONTAINER (0x43) => i2c -cr -croc
+	GET_HASH_PRIMARY_CONTAINER (0x44) => i2c -cr -cphsh
+     -creg <arg>  : Write RPMC Container Command regiter                                      
+      i2c -cr -cmbox -f <filenmae>      [WRITE_EC_FW_TO_BROM_SRAM_MAILBOX 0x41]               "
+      i2c -cr -csts                     [ GET_RPMC_OWNER_CONTAINER Status 0x42]               
+      i2c -cr -croc -f  <filename>      [RESTORE_OWNER_CONTAINER 0x43 ]                       
+      i2c -cr -cphsh                    [GET_HASH_PRIMARY_CONTAINER 0x44 ]                    
+      i2c -cr -ceoc -offset 00 -byte 1  [EXPORT_OWNER_CONTAINER 0x45 ]   
+     2.Response command format display for 0x40,0x41,0x42,0x43,0x44,0x45 
+     3.Added the Unit test case in the tool for the 0x40,0x41,0x42,0x43,0x44,0x45
+      4.To remove the Public key and signature 
+		COMMAND: 	74h
+		Command par 1: 	Manufacturing Mode Enable [7:0]
+		CRC: 	CRC-32 of [COMMAND, Command par1]
+         5. Update of increment 256 bit random number
+        6.I2c host Utility to add the Serial Number into the FW INFO-Get Response command 0x71
+    Build 1000:
+	    1. Added fix for signature failure - append 0 at the begining of r or s term 
+           when length is less than 48 bytes.
+	    2. When the response is signature failure, retry occurs upto 3 times
+	    3. Remove -arm flag from enable debug command.
+	    4. Added flag -eol to fa mode command.
+        i2c_host.exe v10.0.0
+		
+    Build 0A00:
+        1.Added SPI_image_extractor tool in the inputs/ DIR
+        2.Added image extractor info in the i2c_crisis_recovery_utility_user_manual at section 4 
+
+    Build 0900:
+        1.CPG_GLACIER-526 - Added Increment random number feature when the 
+          command(KHB, Header, FW_write) contains sebsequent packets.
+        i2c_host.exe v9.0.0
+
+    Build 0800:
+        1. Added Uart Crisis Recovery Support.
+           Command and Respoonse formats same as I2C crisis recovery.
+        2. Added retry option for init command.
+        3. CPG_GLACIER-520 - Uart clear buffer after response is received instead of 
+           before response.
+        i2c_host.exe v8.0.0
+		
+    Build 0700:
+        1. Added File headers for all source files.
+        2. Added readme.txt for each src folder
+        3. Change -h to -help for all commands
+        4. Added Handling of FT4222 device exceptions.
+		5. KHB Max size of 1104 supported.
+		6. Added sample scripts for each mode used for testing.
+		//depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral/Crisis_Recovery/
+        Glacier_Secure_Boot_I2C_Commands.docx  - Version#13
+        i2c_host.exe v7.0.0
+
+    Build 0603:
+        1. Added User name and host name info in log file.
+        2. Added Command line Support for FA Mode, Manufacturing Mode and 
+           Change frequency Command.
+        //depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral/Crisis_Recovery/
+        Glacier_Secure_Boot_I2C_Commands.docx  - Version#12
+        i2c_host.exe v6.0.3
+
+    Build 0602:
+        1. Added log file support with time stamp.
+        2. Poll I2C Master Driver Error status bits to check if i2c read/write is 
+           success or failure.
+        3. JIRA - CPG_GLACIER-304 Added Enable Debug Command Support.
+        4. Add Speed support from 1k to 3400k.
+        //depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral/Crisis_Recovery/
+        Glacier_Secure_Boot_I2C_Commands.docx  - Version#11
+        i2c_host.exe v6.0.2
+
+    Build 0601:
+        1. Added support GPIO to assert bstrap for Crisis Recovery Mode.
+           The bstrap pin selection done via config file		
+        //depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral/Crisis_Recovery/
+        Glacier_Secure_Boot_I2C_Commands.docx  - Version#10
+        i2c_host.exe v6.0.1
+        
+    Build 0600:
+        1. Added Command line support for Image update commands
+           with or without authentication.
+           Supported Commands : Initialization, Header, KHB, FW Write, Random Number,
+                                FW Info, sram_exe
+        2. Remove CRC for SRAM Command.
+        3. Add Host Random Number.
+        4. Command Mode : User or Crisis Recovery mode configurable from config file
+        //depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral/Crisis_Recovery/
+        Glacier_Secure_Boot_I2C_Commands.docx  - Version#10
+        i2c_host.exe v6.0.0
+
+    Build 0500:
+        1. Added Command byte Sequence format interface for all I2C
+           crisis recovery commands with Security check enable or disable option
+        2. Added Unit Tests. 
+        3. Added CRC32 for command and response.
+        4. Command line support to send Initialization, Get response command
+           key hash blob, header, FW Image and SRAM EXE Command Support.
+           Authentication Not supported.
+        //depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral/Crisis_Recovery/
+		Glacier_Secure_Boot_I2C_Commands.docx  - Version#9
+        i2c_host.exe v5.0.0
+
+		
+    Build 0400:
+        1. Added Command byte Sequence format interface for Firmware
+           Image Update Commands. Signature generation not supported
+           
+        2. Added test functions that tests the bytes sequence format for each command.
+		
+    Build 0300:
+        1. Add No Stop Feature and Combined format support.
+        2. Support to issue commands continuously upto to N times
+           which is configurable.
+        3. Add support to parse from config file.
+        4. Create device Instance based on protocol(UART/I2C) specified in 
+           config file.
+        i2c_host.exe v0.0.2
+
+    Build 0200:
+        1. Add command for I2C User Mode read and write - Simple Aardvark Utility
+        2. Support script file to in batch mode.
+        3. Support shell prompt
+        i2c_host.exe v0.0.1
+        
+    Build 0100:
+        1. Initial Code base to test FTDI 4222H as Master.
+        2. Provide simple i2c read and write commands
+            
+    General information:
+    ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+        Python version        : 3.8.5
+        FT4222 Python Library : ft422 1.2 
+    ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+    
+    View:
+    //depot_pcs/FWEng/projects/Glacier/tools/i2c_crisis_recovery/...

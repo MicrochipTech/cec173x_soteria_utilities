@@ -1,0 +1,75 @@
+Custom file generator for GEN2 support
+
+Build 0400:
+1. Utility version 4.00
+   AP Optional Feature Configuration - Byte 4 of otp offset 851 : Bit[1] to be set
+	Bit[1] : Allow disable intervention mode in SPI monitor
+	1 = Block setting DIV to 1 in SPI monitor ; recommended in production parts
+
+Build 0300:
+1. Utility label 3.00
+  
+Build 0200:
+1. Updated the custom_file.txt to map the efuse region (576-863)
+2. Added the Hash table authentication key mask byte 0-3 
+  AP_BA_PTR0
+  AP_BA_PTR1
+  AP_CFG Authentication key mask byte 0-3
+  Ap public key count
+  AP Optional Feature conf byte 1/2/3/4
+  Feature option source 
+  Feature optonal 1/2/3/4/5/6
+  AP_BA_PTR_CERT Base pointer byte 0-3
+
+Build 0100:
+1. Branched from //depot_pcs/FWEng/solutions/cec1712_GEN2/tools/SB_Custom_file_gen2/...
+
+
+
+----------------------------------------------------------------------------------
+Build 1000:
+1. Added the support for the AP PUBLIC key path to be provided in the browse option
+   which it points and support with the local dir of the PEM key path
+   Fix of the AP public key of any type of algorthm to be provided
+   Generate the hash of the AP public key 384 of provided key in the 
+   browse option
+2. AP CFG / APFW key mask should be given correctly and 
+   path of the AP public key should also to be provided correctly
+
+Build 0900:
+1. Updated the version 9.0 to support the hash for each public key
+2. Based on the key count , where they can select any kind of key algorithm in the browse option to 
+ calculate the hash of hash binary
+
+Build 0800:
+ Generate the window for AP key hash generation restriction - For multiple times 
+
+Build 0700:
+1. 4 byte/1 byte restriction in the GUI as per datasheets for the variable
+2. Genertae_sb custom data of colour change button
+3.Public key count restrcition
+4. Generate the window for AP key hash generation restrritction
+
+Build 0600:
+1. AP public key hash generation by the tool automatcially.
+
+Build 0500:
+1.Updated the 1 byte /4 byte display in the tool and dispaly the defalut value with zero
+2. Help window fix to display multiple time when close and again if it opted to display the help window
+
+Build 0400:
+1. AP_PubKey- Key Count. Number of AP Public Keys Supported (max = 32 keys)
+
+Build 0300:
+1. updated the custom file generator to show which bytes are 32/8 bits
+
+Build 0200:
+1) Generated  the custom_file.txt which map the soteria related region which are configurable by the user 
+
+Build 0100:
+1) Branched from the 
+//depot_pcs/FWEng/solutions/cec1702_GEN1/tools/SB_Custom_file_generator/...
+
+
+General Information:
+Used the python 3.5.0 

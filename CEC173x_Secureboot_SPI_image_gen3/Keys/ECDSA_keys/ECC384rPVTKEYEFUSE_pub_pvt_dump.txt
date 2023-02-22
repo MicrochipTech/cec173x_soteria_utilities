@@ -1,0 +1,21 @@
+Private-Key: (384 bit)
+priv:
+    54:75:14:96:1f:8f:da:f1:f2:48:d2:b1:bf:cf:84:
+    ac:15:63:bf:bb:1d:a1:4b:c5:ba:de:83:74:58:72:
+    97:28:90:a1:66:8d:64:ac:73:c3:62:a3:60:40:ce:
+    25:5a:2f
+pub: 
+    04:c1:b0:4c:ba:99:91:39:5d:98:ba:9b:da:e3:97:
+    58:2e:79:d7:1d:d5:f1:3c:59:3d:d2:34:2d:29:5e:
+    85:48:be:48:91:49:e0:79:80:3b:23:19:21:e1:76:
+    7f:0b:b2:83:50:9f:44:67:be:bd:84:3a:c0:8b:38:
+    6a:09:78:21:3e:40:15:c8:af:d6:57:5a:fa:57:44:
+    94:ef:fb:2f:56:24:60:fb:f1:40:07:3a:c1:9e:bc:
+    2a:7e:68:01:a7:b2:eb
+ASN1 OID: secp384r1
+-----BEGIN EC PRIVATE KEY-----
+MIGkAgEBBDBUdRSWH4/a8fJI0rG/z4SsFWO/ux2hS8W63oN0WHKXKJChZo1krHPD
+YqNgQM4lWi+gBwYFK4EEACKhZANiAATBsEy6mZE5XZi6m9rjl1guedcd1fE8WT3S
+NC0pXoVIvkiRSeB5gDsjGSHhdn8LsoNQn0Rnvr2EOsCLOGoJeCE+QBXIr9ZXWvpX
+RJTv+y9WJGD78UAHOsGevCp+aAGnsus=
+-----END EC PRIVATE KEY-----

@@ -1,0 +1,45 @@
+:***************************************************************************************************
+: I2C Utility supporting Script for sending command receving command and sending file
+: 
+: Refer docs for command Usage 
+:
+:***************************************************************************************************
+
+: Crisis Recovery Mode Commands to Enable/disable QA Mode
+: The commands to be executed are preceed by 'i2c'
+
+: Initialize Host-Boot ROM Communication
+: Uncomment the below command to change retry count
+: i2c -cr -init -retry -c 5 -t 1000
+i2c -cr -init -retry
+
+: Get FW Info
+i2c -cr -info
+
+: Change frequency 
+: Uncomment below command to change frequency
+: i2c -cr -freq 400
+
+: Change Baud 
+: Uncomment below command to change baud for UART
+: i2c -cr -baud 115200
+
+: QA Enable.
+: Uncomment to Enable QA Mode
+: To use the below Command provide sig.bin
+: i2c -cr -manf -qae -nopriv -pub inputs/mtk_pub_key.pem -sig sig.bin
+
+:i2c -cr -manf -qae -priv inputs/mtk_priv_key.pem -rand inputs/qa_rand.txt
+
+: QA Disable.
+: Uncomment to disable QA Mode
+: To use the below Command provide sig.bin
+: i2c -cr -manf -qad -nopriv -pub inputs/mtk_pub_key.pem -sig sig.bin
+
+:Uncomment to use
+ i2c -cr -manf -qad -priv inputs/mtk_priv_key.pem -rand inputs/qa_rand.txt
+
+: Exit Crisis Mode
+i2c -cr -ecm
+
+<EOF>   

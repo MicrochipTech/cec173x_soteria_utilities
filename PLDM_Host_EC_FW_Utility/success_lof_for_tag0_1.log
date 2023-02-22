@@ -1,0 +1,161 @@
+D:\perforce\depot_pcs\FWEng\solutions\Glacier_GEN3\usercodeline\prabha\PLDM>python pldm_host.py
+==========================================================================
+PLDM HOST Utility Version 9.0 Dated 12/29/2021
+==========================================================================
+Port  0
+Master_Slave_Addr  100
+Slave_Slave_Addr  98
+BitRate  400
+Timeout_ms  300
+Bitrate set to 400 kHz
+Slave enabled with address 0x62
+Found the QuerydeviceIdentifiers
+UA Send QuerydeviceIdentifiers  0f09c5010092c801811401be
+===============================================================
+
+Query device Identifiers Commadn received from  FD to Host
+
+Query Device Identifier Packet :
+-------------------------------------------------------------------------------------------
+
+QueryDeviceIdentifier :
+
+ Completion Code : 0
+ Device identifier Length : 200
+ Device ID 0x: 10 25
+ Variable 0x: [81, 0, 34, 20, 57, 153, 0, 7, 120, 118, 70, 98, 84, 118, 23, 134, 40, 83, 118, 135, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7]
+
+
+-------------------------------------------------------------------------------------------
+
+===============================================================
+Found the GetFirmwareparameters
+UA Send GetFirmwareparameters  0f09c5010092c801811402b7
+===============================================================
+
+Get Firmware parameters Commadn received from  FD to Host
+
+Get Firmware parameters Packet :
+-------------------------------------------------------------------------------------------
+
+GetFirmwareParameters :
+
+ Completion Code : 0x0
+ CapabilitiesDuringUpdate 0x: 00 00 00 24
+ ComponentCount 0x: 0x2
+[0x0, 0x24, 0x0, 0x0, 0x0, 0x2, 0x0, 0x1, 0x28, 0x1, 0x28, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xcc, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc, 0x0, 0x0, 0x10, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x28, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x28, 0x0, 0x3a, 0x0, 0x0, 0x0, 0x0, 0x0, 0x47, 0x6c, 0x61, 0x63, 0xbc, 0x69, 0x65, 0x72, 0x5f, 0x47, 0x45, 0x4e, 0x33, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x6b, 0x72, 0x5f, 0x70, 0x6c, 0x64, 0x6d, 0x5f, 0x62, 0x75, 0x69, 0x6c, 0x64, 0x5f, 0x31, 0x30, 0x30, 0x31, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1d, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xc, 0x0, 0x1, 0x10, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x28, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x28, 0x0, 0x3a, 0x0, 0x0, 0x0, 0x0, 0x0, 0x47, 0x6c, 0x61, 0x63, 0x69, 0x65, 0x72, 0x5f, 0x47, 0x45, 0x4e, 0x33, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0xcb, 0x6b, 0x72, 0x5f, 0x70, 0x6c, 0x64, 0x6d, 0x5f, 0x62, 0x75, 0x69, 0x6c, 0x64, 0x5f, 0x31, 0x30, 0x30, 0x31, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9b, 0x0, 0x4f]
+
+
+-------------------------------------------------------------------------------------------
+
+===============================================================
+Found the RequestUpdate
+data  0f15c5010092c8018114100000000000000000000000003e
+data  0f16c5010092c80181141300000000100000000000000000db
+UsePassComponentTable request is True
+data  0f16c5010092c80181141300000001100000000000000000b3
+UsePassComponentTable request is True
+data  0f1dc5010092c8018114140000001000000000000043000000000000000000d6
+UpdateComponent request is True
+Found the RequestFirmwaredata
+RequestFirmwaredata request is True
+
+RequestFirmwareData Commadn received from  FD to Host
+
+file_size  17152
+Start
+Current date & time:  2021-12-30 19:33:19.728958
+Current hour = 19
+Current minute = 33
+Current second = 19
+Current microsecond = 728958
+
+Request Firmware is ready for File transfer to FD
+End Image Write BytesWriten/TotalSize :  17152 / 17152 length =  256
+End Current date & time:  2021-12-30 19:35:06.069571
+End Current hour = 19
+End Current minute = 35
+End Current second = 6
+End Current microsecond = 69571
+
+ Transfercomplete Commadn received from  FD to Host
+
+
+ VerifyComplete Commadn received from  FD to Host
+
+
+ VerifyComplete Commadn received from  FD to Host status =
+ 0
+
+ Apply Command  Commadn received from  FD to Host
+
+data  0f1dc5010092c80181141400000110000000000000810300000000000000006d
+UpdateComponent request is True
+Found the RequestFirmwaredata
+RequestFirmwaredata request is True
+
+RequestFirmwareData Commadn received from  FD to Host
+
+file_size  229632
+Start
+Current date & time:  2021-12-30 19:36:16.607168
+Current hour = 19
+Current minute = 36
+Current second = 16
+Current microsecond = 607168
+
+Request Firmware is ready for File transfer to FD
+End Image Write BytesWriten/TotalSize :  229632 / 229632 length =  256
+End Current date & time:  2021-12-30 20:00:00.849818
+End Current hour = 20
+End Current minute = 0
+End Current second = 0
+End Current microsecond = 849818
+
+ Transfercomplete Commadn received from  FD to Host
+
+
+ VerifyComplete Commadn received from  FD to Host
+
+
+ VerifyComplete Commadn received from  FD to Host status =
+ 0
+
+ Apply Command  Commadn received from  FD to Host
+
+ActivateFirmware Command
+Send Data  0f0ac5010092c80181141a01d5
+==========================================================================
+===============PLDM Host utility Exit===========================================
+
+
+
+Firmware log in uart:
+
+AP0 I2C Port Enabled
+SB_POSTAUTH_STATE_DONE:
+36 cap  %%%%%%%%%%%%%%%%%%% size of get firmware parameters is 3010 request_pass_component_table.transfer_flag0 request_pass_component_table.transfer_flagcomp_identifier is 4096component image size is 17152 no of requests is 67 ++++++++++++++++++++++++++++ CAN UPDATE get staged address
+                                               can update true and sending requ firmware data
+RECEIVED ALL DATA, GO TO EC FW AUTH
+staged 48000, restore 130000, tagx 20008value of verify state 0VERIFY COMPLETE
+sb_ec_fw_update: PLDM, MCTP bit set
+sb_ec_fw_auth switch back to copy active to restore location
+sb_fhcpy :  Flash Copy Start
+sb_fhcpy_read_sector_src_handler : DONE
+sb_fhcpy : Exit - Flash Copy Success
+sb_fhcpy :  Flash Copy Start
+sb_fhcpy_read_sector_src_handler : DONE
+sb_fhcpy : Exit - Flash Copy Success
+ec_fw_size_in_1k is 16comp_identifier is 4097component image size is 229632 no of requests is 897 ++++++++++++++++++++++++++++ CAN UPDATE get staged address
+                                                                             can update true and sending requ firmware data
+RECEIVED ALL DATA, GO TO EC FW AUTH
+staged 48000, restore 130000, tagx 90008value of verify state 0VERIFY COMPLETE
+sb_ec_fw_update: PLDM, MCTP bit set
+sb_ec_fw_auth switch back to copy active to restore location
+sb_fhcpy :  Flash Copy Start
+sb_fhcpy_read_sector_src_handler : DONE
+sb_fhcpy : Exit - Flash Copy Success
+sb_fhcpy :  Flash Copy Start
+sb_fhcpy_read_sector_src_handler : DONE
+sb_fhcpy : Exit - Flash Copy Success
+ec_fw_size_in_1k is 224self_contained_activation is 1

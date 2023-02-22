@@ -1,0 +1,44 @@
+Transfer of ownership TOO command line tool :
+Tool used to transfer the Image to another Image
+
+Build 0400:
+1. REC container commands -> get container, status , rpmc count are working
+Restore REC needs change from tool side with sending the file from the host side
+updated tee conig ini
+
+
+[Get_Primary_Revocation_Emulation_Container]
+Use_Get_Primary_Revocation_Emulation_Container=false
+
+
+[Restore_Primary_Revocation_Emulation_Container]
+Use_Restore_Primary_Revocation_Emulation_Container=true
+BIN_FILE=header0.bin
+
+[Get_Revocation_Emulation_Container_Status]
+Use_Get_Revocation_Emulation_Container_Status=false
+
+[Current_Revocation_Emulation_Container_RPMC_value]
+Use_Current_Revocation_Emulation_Container_RPMC_value=false
+
+
+Build 0300:
+1. I2C command line support to be added in the Host side, which has to have the additional command 
+
+Repair REC Fallback Container
+Get Primary Revocation Emulation Container
+Restore Primary Revocation Emulation Container
+Get Revocation Emulation Container Status\
+ Current Revocation Emulation Container RPMC value 
+
+Build 0200:
+1. updated the version 2.0
+To cover the status of the rpmc command 
+
+
+Build 0100:
+1. Intial version of the tool to have updated Select_RPMC_Container_Command_register 
+updated Select_RPMC_Container_Command_regist and all other RPMC I2C 
+
+GENERAL DESCRITPION:
+Python 3.9 

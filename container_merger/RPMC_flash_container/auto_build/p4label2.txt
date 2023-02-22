@@ -1,0 +1,36 @@
+Description:
+ Glacier RPMC flash container generator:
+Glacier_GEN3 RPMC flash container creation tool with description of build below
+Build 0400:
+1. 	Establish First Owner Command	01h
+	Transfer of Ownership Command	07h-> Update Container
+	Manual Revocation Command	07h -> Update Container
+	Enable Unrestricted Transfers	0Fh
+	Update OTAK Key	1Fh
+	Modify TAGx Base Addresses	2Fh
+	Repair Owner Fallback Container	03h
+	Increment Owner Container RPMC Value	05h
+
+Build 0300:
+1. Updated the verion 4.0 to support all the RPMC container to be generated 
+
+Build 0200:
+1. Updated the exe as version 2.0 of dated 08/09/2021 as per the latest RPMC container docs
+   Rev 7 : //depot_pcs/Programs_2020/Glacier/SysEng/Sys_Arch_Collateral_(Rev_2)/Transfer of Ownership Document/RPMC Flash Container.pdf
+  Updated the readme.txt 
+Build 0100:
+1. Kept the tool for  OTP 0-47 / 128-175 encrytpion tool and ECDHII encryption key header into the spi image header  
+2. Tool for creation of SHA384 owner1 Public key hash into otp/spi image 
+3. Tool to generate the RPMC flash container
+
+
+
+
+    General information:
+    ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+  On Windows install Go 1.5.x windows/amd64.
+  On Linux install Go 1.5.x x86_64           
+    ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+
+    View:
+    //depot_pcs/FWEng/solutions/Glacier_GEN3/tools/RPMC_flash_container/...

@@ -1,0 +1,200 @@
+========================================================================== 
+PLDM HOST Utility Version 1.0 Dated 12/10/2021 
+========================================================================== 
+Port  0
+addr  100
+timeout_ms  300
+Bitrate set to 800 kHz
+Slave enabled with address 0x62
+query_identifier Command 
+Send Data  0f09c5010092c801811401be
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 15 c9 01 92 94 c0 01  01 14 01 00 08 00 00 00  
+0010:  01 00 00 02 00 55 10 14  
+
+
+
+
+update_component Command 
+Send Data  0f1dc5010092c8018114140000000000000000000000000000000000000000c8
+Response From FW
+
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 14 00 00 00 01 00  
+0010:  00 00 00 43 
+
+
+
+Get Firmware parameters Command 
+Send Data  0f09c5010092c801811402b7
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 14 00 00 00 01 00  
+0010:  00 00 00 43 
+
+
+
+
+Request Update Command 
+Send Data  0f15c5010092c8018114100000000000000000000000003e
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0c c9 01 92 94 c0 01  01 14 10 00 00 00 2a 
+
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 15 d4 f7 10 00 9a  
+0010:  01 10 00 86 
+
+
+
+
+PassComponentTable Command 
+Send Data  0f16c5010092c801811413000000000000000000000000005e
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 15 d4 f7 10 00 9a  
+0010:  01 10 00 86 
+
+
+
+
+Transfercomplete Command 
+Send Data  0f0ac5019292c8018114160080
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 15 d4 f7 10 00 9a  
+0010:  01 10 00 86 
+
+
+
+
+Verifycomplete Command 
+Send Data  0f0ac5019292c8018114160080
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 15 d4 f7 10 00 9a  
+0010:  01 10 00 86 
+
+
+
+
+Applycomplete Command 
+Send Data  0f0ac5019292c8018114180056
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 11 c9 01 92 94 c0 01  01 14 15 d4 f7 10 00 9a  
+0010:  01 10 00 86 
+
+
+
+
+ActivateFirmware Command 
+Send Data  0f0ac5010092c80181142000a9
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0c c9 01 92 94 c0 01  01 14 20 00 00 00 83 
+
+
+
+
+GetStatus Command 
+Send Data  0f09c5010092c8018114215e
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0c c9 01 92 94 c0 01  01 14 20 00 00 00 83 
+
+
+
+
+CancelUpdate Command 
+Send Data  0f09c5010092c80181142350
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 13 c9 01 92 94 c0 01  01 14 23 00 00 00 00 00  
+0010:  00 00 00 00 00 a0 
+
+
+
+
+CancelUpdateComponent Command 
+Send Data  0f09c5010092c80181142257
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0a c9 01 92 94 c0 01  01 14 22 00 93 
+
+
+
+
+GETID Command 
+Send Data  0f09c5010092c801811402b7
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0a c9 01 92 94 c0 01  01 14 22 00 93 
+
+
+
+
+GetPLDMVersion Command 
+Send Data  0f09c5010092c801811403b0
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0a c9 01 92 94 c0 01  01 14 22 00 93 
+
+
+
+
+GetPLDMTypes Command 
+Send Data  0f09c5010092c801811404a5
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0a c9 01 92 94 c0 01  01 14 22 00 93 
+
+
+
+
+GetPLDMCommands Command 
+Send Data  0f09c5010092c801811405a2
+Response From FW
+
+*** Transaction #00
+Data read from device:
+0000:  0f 0a c9 01 92 94 c0 01  01 14 22 00 93 
+
+
+
+
+========================================================================== 
+===============PLDM Host utility Exit=========================================== 
